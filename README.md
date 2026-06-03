@@ -1,9 +1,9 @@
 ![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)
 
 
-# ChatterlyAI — Full Multi-Service Open Source AI Chat Platform
+# Mirai — Full Multi-Service Open Source AI Chat Platform
 
-ChatterlyAI is a full-stack AI chat system built with a **Next.js frontend** and **three independent backend services**, deployed separately due to platform constraints (Vercel + Render free tiers).
+Mirai is a full-stack AI chat system built with a **Next.js frontend** and **three independent backend services**, deployed separately due to platform constraints (Vercel + Render free tiers).
 
 # Project Screenshots
 ![Homepage](https://github.com/user-attachments/assets/cb131514-0eec-4562-832b-7e54c380f48b)
@@ -16,7 +16,7 @@ ChatterlyAI is a full-stack AI chat system built with a **Next.js frontend** and
 
 
 ## What this project does
-ChatterlyAI is a full-stack, collaborative AI chat platform that lets multiple users interact with AI in real-time.
+Mirai is a full-stack, collaborative AI chat platform that lets multiple users interact with AI in real-time.
 It integrates a Next.js frontend with three independent backend services, providing a seamless chat experience without switching apps or refreshing pages.
 The system is designed to be easy to set up and extend, allowing contributors to experiment, modify, and enhance the platform collaboratively.
 
@@ -26,16 +26,16 @@ This repository contains:
 - Links to all backend microservices
 - Setup guides for contributors
 
-Live App → https://chatterlyai.vercel.app
+Live App → https://mirai-pi.vercel.app/
 
 ---
 
 ## 📌 System Architecture
-ChatterlyAI consists of **4 repositories working together**:
+Mirai consists of **4 repositories working together**:
 
 | Service | Repo Link | Tech | Deploy |
 |--------|-----------|------|--------|
-| Frontend (Main) | https://github.com/SwayamGupta12345/ChatterlyAI | Next.js | Vercel |
+| Frontend (Main) | https://github.com/SwayamGupta12345/Mirai | Next.js | Vercel |
 | Backend API | https://github.com/SwayamGupta12345/ChatterlyAI_Backend_1 | Node.js | Render |
 | Secondary Backend | https://github.com/SwayamGupta12345/ChatterlyAI_Backend_2 | Node.js | Render |
 | Agentic Backend | https://github.com/SwayamGupta12345/ChatterlyAI_Agentic | Python/CrewAI | Render |
@@ -93,8 +93,8 @@ NEXT_PUBLIC_AI_SOCKET_BACKEND_URL=<your_ai_socket_backend_url> # https://github.
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/SwayamGupta12345/ChatterlyAI.git
-cd ChatterlyAI
+git clone https://github.com/SwayamGupta12345/Mirai.git
+cd Mirai
 npm install    
 ```
 
