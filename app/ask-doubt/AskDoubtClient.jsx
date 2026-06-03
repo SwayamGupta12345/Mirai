@@ -91,7 +91,7 @@ export default function AskDoubtClient() {
   const sendToWhatsApp = (text) =>
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
   const sendToGmail = (text, recipientEmail) => {
-    const subject = encodeURIComponent("ChatterlyAI");
+    const subject = encodeURIComponent("Mirai");
     const body = encodeURIComponent(text);
     const to = encodeURIComponent(recipientEmail || "");
     const gmailUrl = `https://mail.google.com/mail/u/0/?fs=1&to=${to}&su=${subject}&body=${body}&tf=cm`;
@@ -150,7 +150,7 @@ export default function AskDoubtClient() {
             imageUrl: isImg ? imageUrl : null,
           },
         ]);
-      }
+      },
     );
 
     return () => {
@@ -419,7 +419,7 @@ export default function AskDoubtClient() {
         setMessages(
           formatted.length > 0
             ? formatted
-            : [{ text: "Start A Conversation", role: "system", isImg: false }]
+            : [{ text: "Start A Conversation", role: "system", isImg: false }],
         );
       } catch (err) {
         // console.error("Failed to load conversation", err);
@@ -478,7 +478,7 @@ export default function AskDoubtClient() {
         {
           user_id: userEmail,
           message: input,
-        }
+        },
       );
 
       // console.log("AI RESPONSE:", aiRes);
@@ -775,7 +775,7 @@ export default function AskDoubtClient() {
         {
           user_id: userEmail,
           message: text,
-        }
+        },
       );
 
       const aiText = aiRes?.data?.response || "Unexpected response format.";
@@ -850,8 +850,8 @@ export default function AskDoubtClient() {
       if (result.success) {
         setMessages((prev) =>
           prev.map((msg) =>
-            msg.id === editingIndex ? { ...msg, text: editingText } : msg
-          )
+            msg.id === editingIndex ? { ...msg, text: editingText } : msg,
+          ),
         );
         setEditingIndex(null);
         // Send it as a new message flow
@@ -911,7 +911,7 @@ export default function AskDoubtClient() {
 
     // Update state instantly (no reload)
     setUser_ai_chats((prev) =>
-      prev.map((c) => (c._id === chat._id ? { ...c, name: trimmed } : c))
+      prev.map((c) => (c._id === chat._id ? { ...c, name: trimmed } : c)),
     );
     setEditingChatId(null);
   };
@@ -1120,1055 +1120,7 @@ export default function AskDoubtClient() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isSidebarOpen]);
 
-//   return (
-//     <Suspense
-//       fallback={
-//         <FallbackLayout
-//           isSidebarOpen={isSidebarOpen}
-//           setIsSidebarOpen={setIsSidebarOpen}
-//         />
-//       }
-//     >
-//       <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 relative">
-//         {/* Sidebar */}
-//         <div
-//           ref={sidebarRef}
-//           className={`fixed left-0 top-0 h-full w-64 bg-white/80 backdrop-blur-md border-r border-white/20 z-50 transform transition-transform duration-300 ${
-//             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-//           } lg:translate-x-0`}
-//         >
-//           <div className="p-4">
-//             <div className="flex items-center justify-between mb-8">
-//               <div className="flex items-center space-x-2">
-//                 <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-//                   <img
-//                     src="/chatterly_logo.png"
-//                     alt="logo"
-//                     className="w-full h-full object-cover rounded-md"
-//                   />
-//                 </div>
-//                 <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-//                   ChatterlyAI
-//                 </span>
-//               </div>
-
-//               {/* Close button pushed to the right */}
-//               <div className="flex-1 flex justify-end lg:hidden">
-//                 <button
-//                   onClick={() => setIsSidebarOpen(false)}
-//                   className="p-1 hover:bg-gray-200 rounded-md"
-//                 >
-//                   <X className="w-5 h-5 text-gray-600" />
-//                 </button>
-//               </div>
-//             </div>
-
-//             <nav className="space-y-2">
-//               <Link
-//                 href="/dashboard"
-//                 className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-//               >
-//                 <LayoutDashboard className="w-5 h-5" />
-//                 <span className="text-sm">Dashboard</span>
-//               </Link>
-//               <Link
-//                 href="/ask-doubt"
-//                 className="flex items-center space-x-3 px-4 py-3 bg-purple-100 text-purple-700 rounded-xl"
-//               >
-//                 <Lightbulb className="w-5 h-5" />
-//                 <span className="text-sm">Chatbot</span>
-//               </Link>
-//               <Link
-//                 href="/chat"
-//                 className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-//               >
-//                 <MessageCircleMore className="w-5 h-5" />
-//                 <span className="text-sm">Chat with Friends</span>
-//               </Link>
-//               <hr className="border-t-2 border-gray-400 rounded-full my-4 shadow-sm" />
-//               <button
-//                 onClick={handleNewChat}
-//                 className="flex items-center space-x-3 px-4 py-3 bg-green-100 text-green-700 hover:bg-gray-100 rounded-xl transition-colors w-full"
-//               >
-//                 <MessageSquareDiff className="w-5 h-5" />
-//                 <span className="text-sm">New Chat</span>
-//               </button>
-//               <hr className="border-t-2 border-gray-400 rounded-full mb-3 my-4 shadow-sm" />
-//               {/* Dynamically list previous AI chats */}
-//               <div className="space-y-1 mt-5 px-2 h-[47dvh]  overflow-y-auto">
-//                 {user_ai_chats.length > 0 ? (
-//                   user_ai_chats.map((chat) => (
-//                     <div
-//                       key={chat._id}
-//                       // className="w-full text-left px-4 py-2 rounded-xl transition-colors transform duration-300 relative hover:bg-gray-100"
-//                       className="relative group"
-//                     >
-//                       <AnimatePresence>
-//                         {editingChatId === chat._id ? (
-//                           <div ref={reNameRef} className="px-4 py-[6px]">
-//                             <input
-//                               type="text"
-//                               value={newChatName}
-//                               onChange={(e) => setNewChatName(e.target.value)}
-//                               autoFocus
-//                               onKeyDown={async (e) => {
-//                                 if (e.key === "Enter")
-//                                   await handleEditAiChatName(chat);
-//                                 if (e.key === "Escape") setEditingChatId(null);
-//                               }}
-//                               className="max-w-[73%] bg-white text-gray-900 border border-purple-10 focus:ring-2 focus:ring-purple-300 rounded-lg px-3 py-2 text-sm outline-none transition-all duration-200"
-//                               placeholder="Enter new name..."
-//                             />
-//                           </div>
-//                         ) : (
-//                           <Link
-//                             href={`/ask-doubt?convoId=${chat.convoId}`}
-//                             onClick={() => setSelectedConvoId(chat.convoId)}
-//                             className={`block text-sm px-4 py-2 rounded-lg transition-colors pr-[25%] truncate w-full relative ${
-//                               selectedConvoId === chat.convoId
-//                                 ? "bg-purple-200 text-purple-800"
-//                                 : "hover:bg-gray-100 text-gray-700"
-//                             }`}
-//                             title={chat.name || "New Chat"} // optional: show full name on hover
-//                           >
-//                             {chat.name || "New Chat"}
-//                           </Link>
-//                         )}
-//                       </AnimatePresence>
-
-//                       {chat.priority === "high" && (
-//                         <div
-//                           className="absolute top-[18%] right-8 p-1 text-yellow-600"
-//                           title="Pinned"
-//                         >
-//                           <TiPinOutline size={16} fill="currentColor" />
-//                         </div>
-//                       )}
-//                       {/* 3-dot menu trigger */}
-//                       <button
-//                         onClick={(e) => {
-//                           e.preventDefault();
-//                           setMenuOpenId((prev) =>
-//                             prev === chat._id ? null : chat._id
-//                           );
-//                         }}
-//                         className="absolute top-[18%] right-2 p-1 hover:bg-gray-200 rounded"
-//                       >
-//                         <EllipsisVertical size={16} />
-//                       </button>
-
-//                       {/* Dropdown menu */}
-//                       {menuOpenId === chat._id && (
-//                         <div
-//                           ref={menuRef}
-//                           className="absolute right-2 top-8 bg-white shadow-md rounded-md border z-10 w-40 text-sm overflow-hidden"
-//                         >
-//                           <button
-//                             onClick={() => {
-//                               setEditingChatId(chat._id);
-//                               setNewChatName(chat.name || "");
-//                               setMenuOpenId(null);
-//                             }}
-//                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-left"
-//                           >
-//                             <Edit size={14} /> Rename
-//                           </button>
-
-//                           <button
-//                             type="button"
-//                             onClick={() => setChatToDelete(chat)}
-//                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-left text-red-600"
-//                           >
-//                             <Trash2 size={14} /> Delete Chat
-//                           </button>
-//                           {chat.priority === "high" ? (
-//                             <button
-//                               onClick={() => handleTogglePinAiChat(chat, false)}
-//                               className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-left"
-//                             >
-//                               <RiUnpinLine size={18} /> Unpin
-//                             </button>
-//                           ) : (
-//                             <button
-//                               onClick={() => handleTogglePinAiChat(chat, true)}
-//                               className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-left"
-//                             >
-//                               <Pin size={14} /> Pin to Top
-//                             </button>
-//                           )}
-//                         </div>
-//                       )}
-//                     </div>
-//                   ))
-//                 ) : (
-//                   <p className="text-xs text-gray-400 px-4 italic">
-//                     No previous chats
-//                   </p>
-//                 )}
-//               </div>
-//             </nav>
-//           </div>
-//           <div className="absolute bottom-6 left-6 right-6">
-//             <button
-//               onClick={handleLogout}
-//               className="flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors w-full"
-//             >
-//               <LogOut className="w-5 h-5" />
-//               <span>Logout</span>
-//             </button>
-//           </div>
-//         </div>
-//         {/* {chatToDelete && (
-//           <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[999]">
-//             <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-sm">
-//               <h2 className="text-lg font-semibold text-gray-800 mb-3">
-//                 Delete this chat?
-//               </h2>
-//               <p className="text-sm text-gray-600 mb-6">
-//                 This will permanently delete the chat and all related data.
-//               </p>
-//               <div className="flex justify-end gap-3">
-//                 <button
-//                   onClick={() => setChatToDelete(null)}
-//                   className="px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100"
-//                 >
-//                   Cancel
-//                 </button>
-//                 <button
-//                   onClick={() => {
-//                     handleDeleteAiChat(chatToDelete);
-//                     setChatToDelete(null);
-//                   }}
-//                   className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
-//                 >
-//                   Delete
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-//         )} */}
-//         <AnimatePresence>
-//           {chatToDelete && (
-//             <motion.div
-//               key="deleteConfirmAi"
-//               initial={{ opacity: 0 }}
-//               animate={{ opacity: 1 }}
-//               exit={{ opacity: 0 }}
-//               transition={{ duration: 0.2 }}
-//               className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-[999]"
-//             >
-//               <motion.div
-//                 initial={{ scale: 0.9, opacity: 0 }}
-//                 animate={{ scale: 1, opacity: 1 }}
-//                 exit={{ scale: 0.9, opacity: 0 }}
-//                 transition={{ duration: 0.25, ease: "easeOut" }}
-//                 className="bg-white rounded-2xl shadow-2xl w-[90%] max-w-sm p-6 text-center"
-//               >
-//                 <h2 className="text-lg font-semibold text-gray-800 mb-3">
-//                   Delete Chat?
-//                 </h2>
-
-//                 <p className="text-gray-500 text-sm mb-6">
-//                   This will permanently delete the chat and all related data.
-//                 </p>
-
-//                 <div className="flex justify-center gap-4">
-//                   <button
-//                     onClick={() => setChatToDelete(null)}
-//                     className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 
-//                        text-gray-800 font-medium transition"
-//                   >
-//                     Cancel
-//                   </button>
-
-//                   <button
-//                     onClick={() => {
-//                       handleDeleteAiChat(chatToDelete);
-//                       setChatToDelete(null);
-//                     }}
-//                     className="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 
-//                        text-white font-medium transition"
-//                   >
-//                     Delete
-//                   </button>
-//                 </div>
-//               </motion.div>
-//             </motion.div>
-//           )}
-//         </AnimatePresence>
-
-//         {/* Main Section */}
-//         <div className="flex flex-col flex-1 lg:ml-64">
-//           {/* Header */}
-//           <header className="bg-white/70 backdrop-blur-md border-b border-white/20 px-5 py-3 sm:py-3 md:py-4
-//  sticky top-0 z-20">
-//             <div className="flex items-center justify-between">
-//               {/* Left section: Menu toggle + Heading + Back Link */}
-//               <div className="flex items-center space-x-4">
-//                 <button
-//                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-//                   className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors z-[100]"
-//                 >
-//                   {isSidebarOpen ? (
-//                     <X className="w-6 h-6" />
-//                   ) : (
-//                     <Menu className="w-6 h-6" />
-//                   )}
-//                 </button>
-//                 <Lightbulb className="w-5 h-5" />
-//                 <h1 className="text-2xl font-bold text-gray-800">
-//                   Chatbot
-//                 </h1>
-//               </div>
-
-//               {/* Right section: Notification + Profile */}
-//               <div className="flex items-center space-x-4">
-//                 {convoId != "Temporary Chat" && (
-//                   <button
-//                     onClick={() => setShowShare(true)}
-//                     className="flex items-center border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-//                   >
-//                     <Share className="w-5 h-5 text-gray-600 mr-2" />
-//                     <span className="hidden sm:inline">Share</span>
-//                   </button>
-//                 )}
-//                 {/* <Link href="/profile">
-//                   <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center cursor-pointer">
-//                     <User className="w-5 h-5 text-white" />
-//                   </div>
-//                 </Link> */}
-//                 <Link href="/profile">
-//                   <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-300 cursor-pointer">
-//                     {user?.image ? (
-//                       <img
-//                         src={user.image}
-//                         alt="User"
-//                         className="w-full h-full object-cover"
-//                       />
-//                     ) : (
-//                       <div className="w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
-//                         <User className="w-4 h-4 text-white" />
-//                       </div>
-//                     )}
-//                   </div>
-//                 </Link>
-//               </div>
-//             </div>
-//           </header>
-//           {showShare && (
-//             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[1px]">
-//               <div className="bg-white rounded-xl shadow-xl p-6  max-w-md relative">
-//                 {/* Title */}
-//                 <h2 className="text-lg font-semibold mb-4">Share this Chat</h2>
-//                 {/* Close Button */}
-//                 <button
-//                   onClick={() => setShowShare(false)}
-//                   className="absolute top-[25px] right-4 p-1 hover:bg-gray-100 rounded-md"
-//                 >
-//                   <X className="w-5 h-5 text-gray-500" />
-//                 </button>
-
-//                 {/* Add people */}
-//                 <label className="block text-sm font-medium mb-1">
-//                   Add People
-//                 </label>
-//                 <input
-//                   type="text"
-//                   value={searchQuery}
-//                   onChange={(e) => {
-//                     setSearchQuery(e.target.value);
-//                     setSelectedUser({ email: e.target.value }); // Directly set email
-//                   }}
-//                   placeholder="Enter email"
-//                   className="w-full border border-gray-300 rounded-lg p-2 text-sm mb-4"
-//                 />
-
-//                 {/* Message */}
-//                 <label className="block text-sm font-medium mb-1">
-//                   Enter Message to Share
-//                 </label>
-//                 <textarea
-//                   value={shareMessage}
-//                   onChange={(e) => setShareMessage(e.target.value)}
-//                   placeholder="Message"
-//                   className="w-full border border-gray-300 rounded-lg p-2 text-sm mb-4"
-//                   rows={3}
-//                 />
-
-//                 {/* Access rules */}
-//                 <div className="text-xs text-gray-600 mb-2">Access Rules</div>
-//                 <div className="flex items-center gap-2 text-sm text-gray-700 mb-4">
-//                   <Lock className="w-5 h-4 text-gray-500" />
-//                   <span>
-//                     Restricted — Only people with access can the chat open with
-//                     the link
-//                   </span>
-//                 </div>
-//                 <div className="flex items-center gap-2 text-sm text-black-700 mb-4">
-//                   <span>Share Via: </span>
-//                 </div>
-
-//                 {/* Buttons */}
-//                 <div className="mt-4">
-//                   <div className="flex flex-col gap-4 sm:flex-row sm:justify-around">
-//                     {/* LEFT SIDE – Share buttons */}
-//                     <div className="flex flex-wrap gap-3 w-full sm:flex-nowrap">
-//                       {/* Group 1 (Gmail + WhatsApp) on mobile */}
-//                       <div className="flex gap-3 items-center w-full sm:w-auto">
-//                         <button
-//                           onClick={() => handleSendShare("gmail")}
-//                           className="flex items-center justify-center sm:justify-start 
-//                      text-sm bg-gray-600 text-white px-3 py-2 rounded-lg 
-//                      hover:bg-gray-700 transition w-full sm:w-auto"
-//                         >
-//                           <img
-//                             src="/gmail.png" // make sure this path is correct in your public folder
-//                             alt="Gmail"
-//                             className="w-4 h-4 mr-2"
-//                           />
-//                           {/* <Mail className="w-4 h-4 mr-2" /> */}
-//                           Gmail
-//                         </button>
-
-//                         <button
-//                           onClick={() => handleSendShare("whatsapp")}
-//                           className="flex items-center justify-center sm:justify-start
-//                      text-sm bg-green-600 text-white px-3 py-2 rounded-lg 
-//                      hover:bg-green-700 transition w-full sm:w-auto"
-//                         >
-//                           <FaWhatsapp className="w-4 h-4 mr-2" />
-//                           WhatsApp
-//                         </button>
-//                       </div>
-
-//                       {/* Group 2 (OK + Cancel) on mobile */}
-//                       <div className="flex gap-3 w-full sm:w-auto">
-//                         <button
-//                           onClick={() => handleSendShare("ChatterlyAI")}
-//                           style={{ backgroundColor: "#D8B4FE" }}
-//                           onMouseOver={(e) =>
-//                             (e.currentTarget.style.backgroundColor = "#DBAFFF")
-//                           }
-//                           onMouseOut={(e) =>
-//                             (e.currentTarget.style.backgroundColor = "#D8B4FE")
-//                           }
-//                           className="flex items-center justify-center text-sm bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 transition w-full sm:w-auto"
-//                         >
-//                           <img
-//                             src="/chatterly_logo.png" // make sure this path is correct in your public folder
-//                             alt="ChatterlyAI"
-//                             className="w-4 h-4 mr-2  rounded-md"
-//                           />
-//                           OK
-//                         </button>
-
-//                         <button
-//                           onClick={() => setShowShare(false)}
-//                           className="flex items-center justify-center text-sm bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition w-full sm:w-auto"
-//                         >
-//                           <X className="w-5 h-4 mr-1" />
-//                           <span>Cancel</span>
-//                         </button>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           )}
-//           {shared && (
-//             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-//               <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 max-w-sm w-full text-center flex flex-col items-center gap-4">
-//                 {/* Message */}
-//                 <p className="text-gray-900 text-xl sm:text-2xl font-semibold mt-2">
-//                   Chat is shared!
-//                 </p>
-
-//                 {/* Confirmation Video */}
-//                 <video
-//                   src="/confirmation1.mp4"
-//                   autoPlay
-//                   loop
-//                   muted
-//                   className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 object-cover rounded-xl"
-//                 />
-
-//                 {/* OK Button */}
-//                 <button
-//                   onClick={() => setShared(false)}
-//                   className="bg-purple-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl text-lg sm:text-xl font-semibold hover:bg-purple-700 transition mt-4"
-//                 >
-//                   OK
-//                 </button>
-//               </div>
-//             </div>
-//           )}
-
-//           {/* Chat Body */}
-//           {/* <div className="p-6">
-//             <h1 className="text-xl font-bold mb-4">
-//               Chat: {convoId || "No convo selected"}
-//             </h1>
-//           </div> */}
-//           <main className="flex-1 relative overflow-x-hidden">
-//             <div className="h-full flex flex-col">
-//               <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 pb-32">
-//                 {messages.map((msg, index) => (
-//                   <div
-//                     key={msg.id || index}
-//                     className={`flex ${
-//                       msg.role === "user" ? "justify-end" : "justify-start"
-//                     }`}
-//                   >
-//                     <div
-//                       className={`px-4 py-3 rounded-xl shadow-md break-words ${
-//                         msg.role === "user"
-//                           ? "bg-purple-100 text-pretty rounded-br-none max-w-[70%] sm:max-w-md"
-//                           : "bg-blue-200 rounded-bl-none max-w-[90%] sm:max-w-2xl overflow-x-auto"
-//                       }`}
-//                     >
-//                       <div
-//                         className={`text-xs font-semibold mb-1 ${
-//                           msg.role === "user" ? "text-right" : "text-left"
-//                         }`}
-//                       >
-//                         {msg.role === "user" ? `${msg.senderName}` : "ChatterlyAI"}
-//                       </div>
-
-//                       <div className="markdown-content text-sm text-gray-800 overflow-x-hidden">
-//                         <div className="min-w-full">
-//                           {editingIndex === (msg.id ?? index) ? (
-//                             <div className="space-y-2">
-//                               <textarea
-//                                 value={editingText}
-//                                 onChange={(e) => setEditingText(e.target.value)}
-//                                 className="w-full p-2 border rounded resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400"
-//                                 rows={2}
-//                               />
-//                               <div className="flex justify-end gap-3 text-sm">
-//                                 <button
-//                                   onClick={confirmEditMessage}
-//                                   className="text-green-600 hover:text-green-700 font-medium"
-//                                 >
-//                                   Send
-//                                 </button>
-//                                 <button
-//                                   onClick={() => {
-//                                     setEditingIndex(null);
-//                                     setEditingText("");
-//                                   }}
-//                                   className="text-gray-600 hover:text-gray-800 font-medium"
-//                                 >
-//                                   Cancel
-//                                 </button>
-//                               </div>
-//                             </div>
-//                           ) : msg.isImg ? (
-//                             <div
-//                               className={`max-w-xs bg-white border shadow-sm rounded-xl p-2 flex flex-col gap-2 ${
-//                                 msg.role === "user" ? "self-end" : "self-start"
-//                               }`}
-//                             >
-//                               <img
-//                                 src={msg.imageUrl}
-//                                 alt="Generated"
-//                                 className="w-full h-auto rounded-lg object-cover cursor-pointer"
-//                                 onClick={() => setFullscreenImage(msg.imageUrl)}
-//                               />{" "}
-//                               <div className="flex items-center justify-between px-1">
-//                                 <button
-//                                   onClick={async () => {
-//                                     try {
-//                                       const res = await fetch(msg.imageUrl);
-//                                       const blob = await res.blob();
-//                                       const url =
-//                                         window.URL.createObjectURL(blob);
-//                                       const a = document.createElement("a");
-//                                       a.href = url;
-//                                       a.download = "generated.png"; // filename
-//                                       a.click();
-//                                       window.URL.revokeObjectURL(url);
-//                                     } catch (err) {
-//                                       console.error("Download failed", err);
-//                                     }
-//                                   }}
-//                                   className="text-blue-500 text-xs font-semibold"
-//                                 >
-//                                   Download
-//                                 </button>
-//                               </div>
-//                             </div>
-//                           ) : (
-//                             <ReactMarkdown
-//                               remarkPlugins={[remarkGfm]}
-//                               components={{
-//                                 // p: ({ children }) => {
-//                                 //   // Ensure children is an array
-//                                 //   const childArray = Array.isArray(children)
-//                                 //     ? children
-//                                 //     : [children];
-
-//                                 //   // Compute total text length for alignment
-//                                 //   const textLength = childArray
-//                                 //     .map((c) =>
-//                                 //       typeof c === "string" ? c : ""
-//                                 //     )
-//                                 //     .join("").length;
-
-//                                 //   // Short message → fully right-aligned for user
-//                                 //   if (msg.role === "user" && textLength <= 64) {
-//                                 //     return (
-//                                 //       <p className="mb-1 text-right">
-//                                 //         {children}
-//                                 //       </p>
-//                                 //     );
-//                                 //   }
-
-//                                 //   // Long message → normal wrap
-//                                 //   return <p className="mb-1">{children}</p>;
-//                                 // },
-//                                 p: ({ children }) => {
-//                                   // total length of complete message, not per-paragraph children
-//                                   const totalLength = (msg.text || "").length;
-
-//                                   const isShort =
-//                                     msg.role === "user" && totalLength <= 64;
-
-//                                   return (
-//                                     <p
-//                                       className={`mb-1 ${
-//                                         isShort ? "text-right" : ""
-//                                       }`}
-//                                     >
-//                                       {children}
-//                                     </p>
-//                                   );
-//                                 },
-
-//                                 img: ({ src, alt }) => (
-//                                   <img
-//                                     src={src}
-//                                     alt={alt}
-//                                     className="rounded-lg max-w-full h-auto"
-//                                   />
-//                                 ),
-//                                 a: ({ href, children }) => (
-//                                   <a
-//                                     href={href}
-//                                     style={{
-//                                       color: "#6cf",
-//                                       textDecoration: "underline",
-//                                     }}
-//                                   >
-//                                     {children}
-//                                   </a>
-//                                 ),
-//                                 li: ({ children }) => <li>{children}</li>,
-//                                 code: ({ inline, children, className }) => {
-//                                   const text = Array.isArray(children)
-//                                     ? children.join("")
-//                                     : String(children);
-
-//                                   // If it's inline OR there is no language + no newline → inline code
-//                                   const isInlineFenced =
-//                                     !inline &&
-//                                     !className && // means ``` not ```js or similar
-//                                     !text.includes("\n");
-
-//                                   if (inline || isInlineFenced) {
-//                                     return (
-//                                       <code
-//                                         style={{
-//                                           padding: "2px 6px",
-//                                           borderRadius: "4px",
-//                                           color: "black",
-//                                           fontSize: "0.95em",
-//                                         }}
-//                                         className="bg-blue-300"
-//                                       >
-//                                         {text}
-//                                       </code>
-//                                     );
-//                                   }
-
-//                                   // Multi-line block
-//                                   return (
-//                                     <div
-//                                       style={{
-//                                         position: "relative",
-//                                         marginBottom: "1rem",
-//                                       }}
-//                                     >
-//                                       <pre className="bg-blue-300 text-black p-4 rounded-md overflow-x-auto text-sm">
-//                                         <code>{text}</code>
-//                                       </pre>
-
-//                                       <div
-//                                         style={{
-//                                           position: "absolute",
-//                                           top: 6,
-//                                           right: 8,
-//                                           display: "flex",
-//                                           gap: "8px",
-//                                         }}
-//                                       >
-//                                         <button
-//                                           onClick={() => handleCopy(text)}
-//                                           title="Copy"
-//                                           style={{
-//                                             background: "none",
-//                                             color: "black",
-//                                             border: "none",
-//                                             cursor: "pointer",
-//                                           }}
-//                                         >
-//                                           <FaCopy />
-//                                         </button>
-
-//                                         <button
-//                                           onClick={() => sendToWhatsApp(text)}
-//                                           title="Share via WhatsApp"
-//                                           style={{
-//                                             background: "none",
-//                                             color: "green",
-//                                             border: "none",
-//                                             cursor: "pointer",
-//                                           }}
-//                                         >
-//                                           <FaWhatsapp />
-//                                         </button>
-
-//                                         <button
-//                                           onClick={() => sendToGmail(text)}
-//                                           title="Send via Email"
-//                                           style={{
-//                                             background: "none",
-//                                             color: "black",
-//                                             border: "none",
-//                                             cursor: "pointer",
-//                                           }}
-//                                         >
-//                                           {/* <FaEnvelope /> */}
-//                                           <img
-//                                             src="/gmail.png"
-//                                             alt="Gmail"
-//                                             style={{
-//                                               width: "16px",
-//                                               height: "16px",
-//                                             }}
-//                                           />
-//                                         </button>
-//                                       </div>
-//                                     </div>
-//                                   );
-//                                 },
-//                                 table: ({ children }) => (
-//                                   <div style={{ overflowX: "auto" }}>
-//                                     <table className="min-w-[500px] table-auto border border-gray-400 text-sm">
-//                                       {children}
-//                                     </table>
-//                                   </div>
-//                                 ),
-//                                 thead: ({ children }) => (
-//                                   <thead style={{ backgroundColor: "#e5e7eb" }}>
-//                                     {children}
-//                                   </thead>
-//                                 ),
-//                                 tbody: ({ children }) => (
-//                                   <tbody>{children}</tbody>
-//                                 ),
-//                                 tr: ({ children }) => (
-//                                   <tr
-//                                     style={{ borderBottom: "1px solid #888" }}
-//                                   >
-//                                     {children}
-//                                   </tr>
-//                                 ),
-//                                 th: ({ children }) => (
-//                                   <th className="border border-gray-400 bg-gray-200 px-4 py-2 text-left font-medium">
-//                                     {children}
-//                                   </th>
-//                                 ),
-//                                 td: ({ children }) => (
-//                                   <td className="border border-gray-300 px-4 py-2 text-left">
-//                                     {children}
-//                                   </td>
-//                                 ),
-//                               }}
-//                               supresshydration
-//                             >
-//                               {msg.text}
-//                             </ReactMarkdown>
-//                           )}
-//                           {fullscreenImage && (
-//                             <div
-//                               className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
-//                               onClick={() => setFullscreenImage(null)}
-//                             >
-//                               <img
-//                                 src={fullscreenImage}
-//                                 className="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl"
-//                               />
-//                             </div>
-//                           )}
-//                         </div>
-//                         {msg.text && (
-//                           <div
-//                             className={`flex gap-4 items-center mt-2 text-xs text-gray-700 ${
-//                               msg.role === "user"
-//                                 ? "justify-end"
-//                                 : "justify-start"
-//                             }`}
-//                           >
-//                             {msg.role === "user" && (
-//                               <>
-//                                 <button
-//                                   onClick={() => handleCopy(msg.text)}
-//                                   title="Copy message"
-//                                   className="flex items-center gap-1 text-black-600 hover:underline"
-//                                 >
-//                                   <FaCopy />
-//                                   <span>Copy</span>
-//                                 </button>
-//                                 <button
-//                                   onClick={() => handleEditMessage(msg.id)}
-//                                   title="Edit message"
-//                                   className="flex items-center gap-1 text-blue-600 hover:underline"
-//                                 >
-//                                   <RiEditLine />
-//                                   <span>Edit</span>
-//                                 </button>
-//                                 <button
-//                                   onClick={() =>
-//                                     setConfirmDelete({ show: true, id: msg.id })
-//                                   }
-//                                   title="Delete message"
-//                                   className="flex items-center gap-1 text-red-600 hover:underline"
-//                                 >
-//                                   <MdDelete />
-//                                   <span>Delete</span>
-//                                 </button>
-//                               </>
-//                             )}
-//                             {msg.role !== "user" && !msg.isImg && (
-//                               <div className="flex items-center gap-4 mt-2">
-//                                 {/* Copy */}
-//                                 <button
-//                                   onClick={() => handleCopy(msg.text)}
-//                                   title="Copy message"
-//                                   className="flex items-center gap-1 text-gray-600 hover:text-purple-600 transition"
-//                                 >
-//                                   <FaCopy className="w-4 h-4" />
-//                                   <span className="hidden xs:inline">Copy</span>
-//                                 </button>
-//                                 {/* WhatsApp */}
-//                                 <button
-//                                   onClick={() => sendToWhatsApp(msg.text)}
-//                                   title="Share via WhatsApp"
-//                                   className="flex items-center gap-1 text-green-600 hover:text-green-700 transition"
-//                                 >
-//                                   <FaWhatsapp className="w-4 h-4" />
-//                                   <span className="hidden xs:inline">
-//                                     WhatsApp
-//                                   </span>
-//                                 </button>
-//                                 {/* Gmail */}
-//                                 <button
-//                                   onClick={() => sendToGmail(msg.text)}
-//                                   title="Send via Email"
-//                                   className="flex items-center gap-1 text-red-600 hover:text-red-700 transition"
-//                                 >
-//                                   <img
-//                                     src="/gmail.png"
-//                                     alt="Gmail"
-//                                     className="w-4 h-4"
-//                                   />
-//                                   <span className="hidden xs:inline">
-//                                     Gmail
-//                                   </span>
-//                                 </button>
-//                                 {/* Speak / Pause */}
-//                                 <button
-//                                   onClick={() => speakText(msg.text)}
-//                                   title={
-//                                     isPaused
-//                                       ? "Resume speaking"
-//                                       : isSpeaking
-//                                       ? "Pause speaking"
-//                                       : "Play"
-//                                   }
-//                                   className="flex items-center gap-1 text-blue-600 hover:text-blue-800 transition"
-//                                 >
-//                                   {isSpeaking ? (
-//                                     isPaused ? (
-//                                       <FaPlay className="w-4 h-4" />
-//                                     ) : (
-//                                       <FaPause className="w-4 h-4" />
-//                                     )
-//                                   ) : (
-//                                     <FaVolumeUp className="w-4 h-4" />
-//                                   )}
-
-//                                   <span>
-//                                     {isPaused
-//                                       ? "Resume"
-//                                       : isSpeaking
-//                                       ? "Pause"
-//                                       : "Play"}
-//                                   </span>
-//                                 </button>
-//                               </div>
-//                             )}
-//                           </div>
-//                         )}
-//                       </div>
-//                     </div>
-//                   </div>
-//                 ))}
-//                 {loading && (
-//                   <div className="text-sm text-gray-500 animate-pulse">
-//                     ChatterlyAI is typing...
-//                   </div>
-//                 )}
-//                 {error && <div className="text-sm text-red-500">{error}</div>}
-//                 <div ref={messagesEndRef} />
-//               </div>
-
-//               {/* Chat Input Fixed at Bottom */}
-//               <div className="fixed bottom-0 left-0 right-0 lg:ml-64 bg-white/90 backdrop-blur-lg border-t border-white/20 px-6 py-3 z-40">
-//                 <div className="flex items-center gap-2 max-w-7xl mx-auto">
-//                   <textarea
-//                     ref={inputRef}
-//                     value={input}
-//                     onChange={(e) => setInput(e.target.value)}
-//                     onInput={(e) => {
-//                       e.target.style.height = "auto";
-//                       e.target.style.height = `${e.target.scrollHeight}px`;
-//                     }}
-//                     onKeyDown={(e) => {
-//                       if (e.key === "Enter" && !e.shiftKey) {
-//                         e.preventDefault();
-//                         handleSubmit();
-//                         // RESET SIZE AFTER SEND
-//                         const el = inputRef.current;
-//                         el.style.height = "auto"; // resets back to initial (rows={3})
-//                       }
-//                     }}
-//                     placeholder="Type or speak your message. Use /img at the start to generate images."
-//                     rows={2}
-//                     className="flex-1 px-4 py-2 border border-gray-300 rounded-xl resize-y focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[4rem] max-h-[12rem] "
-//                   />
-//                   <>
-//                     {/* Mic toggle button */}
-//                     <button
-//                       onClick={toggleListening}
-//                       className={`p-2 rounded-xl border transition ${
-//                         listening
-//                           ? "bg-red-500 text-white"
-//                           : "bg-white text-black"
-//                       }`}
-//                     >
-//                       {listening ? (
-//                         <MicOff className="w-5 h-5" />
-//                       ) : (
-//                         <Mic className="w-5 h-5" />
-//                       )}
-//                     </button>
-
-//                     {/* Listening modal (NOT inside button) */}
-//                     {listening && (
-//                       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm text-center">
-//                         <div className="bg-white rounded-2xl shadow-2xl px-6 py-8 w-[90%] max-w-sm relative flex flex-col items-center gap-4">
-//                           {/* Close button */}
-//                           <button
-//                             onClick={toggleListening}
-//                             className="absolute top-3 right-3 p-2 bg-gray-100 hover:bg-red-100 rounded-full"
-//                             title="Stop Listening"
-//                           >
-//                             <X className="w-5 h-5 text-red-500" />
-//                           </button>
-
-//                           {/* Mic animation */}
-//                           <div className="relative mt-2">
-//                             <div className="absolute h-16 w-16 bg-green-400 opacity-75 rounded-full animate-ping"></div>
-//                             <div className="h-16 w-16 bg-green-600 rounded-full flex items-center justify-center relative z-10">
-//                               <Mic className="w-6 h-6 text-white" />
-//                             </div>
-//                           </div>
-
-//                           <p className="text-gray-600 text-sm font-medium">
-//                             Listening…
-//                           </p>
-
-//                           {liveTranscript && (
-//                             <p className="text-gray-700 text-sm bg-gray-100 rounded-md px-4 py-2 w-full text-center">
-//                               {liveTranscript}
-//                             </p>
-//                           )}
-
-//                           <button
-//                             onClick={toggleListening}
-//                             className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition"
-//                           >
-//                             Stop & Continue
-//                           </button>
-//                         </div>
-//                       </div>
-//                     )}
-//                   </>
-//                   <button
-//                     onClick={handleSubmit}
-//                     disabled={loading}
-//                     className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-xl hover:scale-105 transition"
-//                   >
-//                     <Send className="w-5 h-5" />
-//                   </button>
-//                 </div>
-//                 <p className="text-xs text-gray-500 justify-center mt-[2px] text-center mb-0">
-//                   ChatterlyAI can make mistakes. Check important info.
-//                 </p>
-//               </div>
-//             </div>
-//             {confirmDelete.show && (
-//               <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
-//                 <div className="bg-white rounded-xl shadow-lg p-5 w-[90%] max-w-sm animate-fadeIn">
-//                   <h2 className="text-lg font-semibold text-gray-800 mb-2">
-//                     Delete this message?
-//                   </h2>
-//                   <p className="text-sm text-gray-600 mb-4">
-//                     This will permanently remove the message and its AI
-//                     response.
-//                   </p>
-//                   <div className="flex justify-end gap-3 text-sm">
-//                     <button
-//                       onClick={() =>
-//                         setConfirmDelete({ show: false, id: null })
-//                       }
-//                       className="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100"
-//                     >
-//                       Cancel
-//                     </button>
-//                     <button
-//                       onClick={() => {
-//                         handleDeleteMessage(confirmDelete.id);
-//                         setConfirmDelete({ show: false, id: null });
-//                       }}
-//                       className="px-3 py-1.5 rounded-lg bg-red-600 text-white hover:bg-red-700"
-//                     >
-//                       Delete
-//                     </button>
-//                   </div>
-//                 </div>
-//               </div>
-//             )}
-//           </main>
-//         </div>
-//       </div>
-//     </Suspense>
-//   );
-// }
-
-return (
+  return (
     <Suspense
       fallback={
         <FallbackLayout
@@ -2275,7 +1227,6 @@ return (
         `}</style>
 
         <div className="min-h-screen flex flex-col bg-[#F3EDE1] relative">
-
           {/* Sidebar overlay */}
           <div
             className={`sidebar-overlay ${isSidebarOpen ? "show" : ""}`}
@@ -2293,9 +1244,15 @@ return (
             <div className="px-4 pt-5 pb-4 border-b border-[#D6CFBF] flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-md overflow-hidden border border-[#D6CFBF] flex-shrink-0">
-                  <img src="/chatterly_logo.png" alt="logo" className="w-full h-full object-cover" />
+                  <img
+                    src="/chatterly_logo.png"
+                    alt="logo"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <span className="serif text-[1.05rem] text-[#1C1F1A]">ChatterlyAI</span>
+                <span className="serif text-[1.05rem] text-[#1C1F1A]">
+                  Mirai
+                </span>
               </div>
               <button
                 onClick={() => setIsSidebarOpen(false)}
@@ -2307,7 +1264,9 @@ return (
 
             {/* Nav */}
             <nav className="px-3 py-3 space-y-0.5 flex-shrink-0">
-              <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-3 mb-2">Menu</p>
+              <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-3 mb-2">
+                Menu
+              </p>
               <Link href="/dashboard" className="nav-item">
                 <LayoutDashboard size={15} /> Dashboard
               </Link>
@@ -2330,7 +1289,9 @@ return (
 
             {/* Chat history */}
             <div className="thin-scroll flex-1 overflow-y-auto px-3 py-1">
-              <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-2 mb-2">History</p>
+              <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-2 mb-2">
+                History
+              </p>
               {user_ai_chats.length > 0 ? (
                 user_ai_chats.map((chat) => (
                   <div key={chat._id} className="relative group mb-0.5">
@@ -2343,7 +1304,8 @@ return (
                             onChange={(e) => setNewChatName(e.target.value)}
                             autoFocus
                             onKeyDown={async (e) => {
-                              if (e.key === "Enter") await handleEditAiChatName(chat);
+                              if (e.key === "Enter")
+                                await handleEditAiChatName(chat);
                               if (e.key === "Escape") setEditingChatId(null);
                             }}
                             className="rename-input"
@@ -2363,7 +1325,10 @@ return (
                     </AnimatePresence>
 
                     {chat.priority === "high" && (
-                      <div className="absolute top-[30%] right-7 text-[#A09B92]" title="Pinned">
+                      <div
+                        className="absolute top-[30%] right-7 text-[#A09B92]"
+                        title="Pinned"
+                      >
                         <TiPinOutline size={13} fill="currentColor" />
                       </div>
                     )}
@@ -2372,7 +1337,9 @@ return (
                     <button
                       onClick={(e) => {
                         e.preventDefault();
-                        setMenuOpenId((prev) => prev === chat._id ? null : chat._id);
+                        setMenuOpenId((prev) =>
+                          prev === chat._id ? null : chat._id,
+                        );
                       }}
                       className="absolute top-[20%] right-1 p-1 rounded hover:bg-[#E8E2D6] bg-transparent border-none cursor-pointer text-[#A09B92] opacity-0 group-hover:opacity-100 transition-opacity"
                     >
@@ -2380,9 +1347,16 @@ return (
                     </button>
 
                     {menuOpenId === chat._id && (
-                      <div ref={menuRef} className="ctx-menu absolute right-1 top-7 z-10">
+                      <div
+                        ref={menuRef}
+                        className="ctx-menu absolute right-1 top-7 z-10"
+                      >
                         <button
-                          onClick={() => { setEditingChatId(chat._id); setNewChatName(chat.name || ""); setMenuOpenId(null); }}
+                          onClick={() => {
+                            setEditingChatId(chat._id);
+                            setNewChatName(chat.name || "");
+                            setMenuOpenId(null);
+                          }}
                           className="ctx-btn"
                         >
                           <Edit size={13} /> Rename
@@ -2395,11 +1369,17 @@ return (
                           <Trash2 size={13} /> Delete
                         </button>
                         {chat.priority === "high" ? (
-                          <button onClick={() => handleTogglePinAiChat(chat, false)} className="ctx-btn">
+                          <button
+                            onClick={() => handleTogglePinAiChat(chat, false)}
+                            className="ctx-btn"
+                          >
                             <RiUnpinLine size={15} /> Unpin
                           </button>
                         ) : (
-                          <button onClick={() => handleTogglePinAiChat(chat, true)} className="ctx-btn">
+                          <button
+                            onClick={() => handleTogglePinAiChat(chat, true)}
+                            className="ctx-btn"
+                          >
                             <Pin size={13} /> Pin to top
                           </button>
                         )}
@@ -2408,7 +1388,9 @@ return (
                   </div>
                 ))
               ) : (
-                <p className="text-xs text-[#C4BDB0] px-2 py-1">No previous chats</p>
+                <p className="text-xs text-[#C4BDB0] px-2 py-1">
+                  No previous chats
+                </p>
               )}
             </div>
 
@@ -2438,8 +1420,12 @@ return (
                   transition={{ duration: 0.2, ease: "easeOut" }}
                   className="bg-[#FDFAF5] rounded-xl border border-[#D6CFBF] shadow-xl w-[90%] max-w-sm p-6 text-center"
                 >
-                  <h2 className="serif text-[1.15rem] text-[#1C1F1A] mb-2">Delete this chat?</h2>
-                  <p className="text-sm text-[#7A7568] mb-6 leading-relaxed">This will permanently delete the chat and all related data.</p>
+                  <h2 className="serif text-[1.15rem] text-[#1C1F1A] mb-2">
+                    Delete this chat?
+                  </h2>
+                  <p className="text-sm text-[#7A7568] mb-6 leading-relaxed">
+                    This will permanently delete the chat and all related data.
+                  </p>
                   <div className="flex justify-center gap-3">
                     <button
                       onClick={() => setChatToDelete(null)}
@@ -2448,7 +1434,10 @@ return (
                       Cancel
                     </button>
                     <button
-                      onClick={() => { handleDeleteAiChat(chatToDelete); setChatToDelete(null); }}
+                      onClick={() => {
+                        handleDeleteAiChat(chatToDelete);
+                        setChatToDelete(null);
+                      }}
                       className="px-4 py-2 rounded-lg bg-[#B94040] text-white text-sm hover:bg-[#9A3333] transition cursor-pointer"
                     >
                       Delete
@@ -2461,7 +1450,6 @@ return (
 
           {/* ─── MAIN ─── */}
           <div className="flex flex-col flex-1 lg:ml-60">
-
             {/* Header */}
             <header className="bg-[#F3EDE1]/90 backdrop-blur-md border-b border-[#D6CFBF] px-5 py-3.5 sticky top-0 z-20 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -2472,7 +1460,9 @@ return (
                   {isSidebarOpen ? <X size={15} /> : <Menu size={15} />}
                 </button>
                 <Lightbulb size={15} className="text-[#5C6B5C]" />
-                <h1 className="serif text-[1.2rem] text-[#1C1F1A] tracking-tight">AI Chatbot</h1>
+                <h1 className="serif text-[1.2rem] text-[#1C1F1A] tracking-tight">
+                  AI Chatbot
+                </h1>
               </div>
 
               <div className="flex items-center gap-2">
@@ -2488,7 +1478,11 @@ return (
                 <Link href="/profile">
                   <div className="w-8 h-8 rounded-full overflow-hidden border border-[#D6CFBF] cursor-pointer">
                     {user?.image ? (
-                      <img src={user.image} alt="User" className="w-full h-full object-cover" />
+                      <img
+                        src={user.image}
+                        alt="User"
+                        className="w-full h-full object-cover"
+                      />
                     ) : (
                       <div className="w-full h-full bg-[#3A4A3A] flex items-center justify-center">
                         <User size={14} className="text-[#F3EDE1]" />
@@ -2503,7 +1497,9 @@ return (
             {showShare && (
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-[2px]">
                 <div className="bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl shadow-xl p-6 w-[90%] max-w-md relative">
-                  <h2 className="serif text-[1.15rem] text-[#1C1F1A] mb-5">Share this Chat</h2>
+                  <h2 className="serif text-[1.15rem] text-[#1C1F1A] mb-5">
+                    Share this Chat
+                  </h2>
                   <button
                     onClick={() => setShowShare(false)}
                     className="absolute top-5 right-4 w-7 h-7 flex items-center justify-center rounded-md hover:bg-[#EDE7DA] bg-transparent border-none cursor-pointer text-[#7A7568]"
@@ -2511,16 +1507,23 @@ return (
                     <X size={15} />
                   </button>
 
-                  <label className="block text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">Add people</label>
+                  <label className="block text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">
+                    Add people
+                  </label>
                   <input
                     type="text"
                     value={searchQuery}
-                    onChange={(e) => { setSearchQuery(e.target.value); setSelectedUser({ email: e.target.value }); }}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setSelectedUser({ email: e.target.value });
+                    }}
                     placeholder="Enter email"
                     className="modal-input mb-4"
                   />
 
-                  <label className="block text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">Message</label>
+                  <label className="block text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">
+                    Message
+                  </label>
                   <textarea
                     value={shareMessage}
                     onChange={(e) => setShareMessage(e.target.value)}
@@ -2540,7 +1543,8 @@ return (
                       onClick={() => handleSendShare("gmail")}
                       className="flex items-center gap-1.5 text-sm bg-[#3A4A3A] text-[#FDFAF5] px-3 py-2 rounded-lg hover:bg-[#1C1F1A] transition cursor-pointer border-none"
                     >
-                      <img src="/gmail.png" alt="Gmail" className="w-4 h-4" /> Gmail
+                      <img src="/gmail.png" alt="Gmail" className="w-4 h-4" />{" "}
+                      Gmail
                     </button>
                     <button
                       onClick={() => handleSendShare("whatsapp")}
@@ -2549,10 +1553,15 @@ return (
                       <FaWhatsapp size={14} /> WhatsApp
                     </button>
                     <button
-                      onClick={() => handleSendShare("ChatterlyAI")}
+                      onClick={() => handleSendShare("Mirai")}
                       className="flex items-center gap-1.5 text-sm bg-[#FDFAF5] border border-[#D6CFBF] text-[#1C1F1A] px-3 py-2 rounded-lg hover:bg-[#EDE7DA] transition cursor-pointer"
                     >
-                      <img src="/chatterly_logo.png" alt="ChatterlyAI" className="w-4 h-4 rounded" /> Send
+                      <img
+                        src="/chatterly_logo.png"
+                        alt="Mirai"
+                        className="w-4 h-4 rounded"
+                      />{" "}
+                      Send
                     </button>
                     <button
                       onClick={() => setShowShare(false)}
@@ -2569,8 +1578,16 @@ return (
             {shared && (
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-[2px] p-4">
                 <div className="bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl shadow-xl p-6 max-w-sm w-full text-center flex flex-col items-center gap-4">
-                  <p className="serif text-[1.3rem] text-[#1C1F1A]">Chat shared!</p>
-                  <video src="/confirmation1.mp4" autoPlay loop muted className="w-44 h-44 object-cover rounded-xl" />
+                  <p className="serif text-[1.3rem] text-[#1C1F1A]">
+                    Chat shared!
+                  </p>
+                  <video
+                    src="/confirmation1.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    className="w-44 h-44 object-cover rounded-xl"
+                  />
                   <button
                     onClick={() => setShared(false)}
                     className="bg-[#3A4A3A] text-[#FDFAF5] px-7 py-2.5 rounded-lg text-sm hover:bg-[#1C1F1A] transition cursor-pointer border-none"
@@ -2584,7 +1601,6 @@ return (
             {/* ─── CHAT BODY ─── */}
             <main className="flex-1 relative overflow-x-hidden">
               <div className="h-full flex flex-col">
-
                 {/* Messages */}
                 <div className="thin-scroll flex-1 overflow-y-auto px-4 md:px-6 py-5 space-y-4 pb-36">
                   {messages.map((msg, index) => (
@@ -2592,17 +1608,22 @@ return (
                       key={msg.id || index}
                       className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                     >
-                      <div className={`px-4 py-3 break-words ${
-                        msg.role === "user"
-                          ? "bubble-user max-w-[70%] sm:max-w-md"
-                          : "bubble-ai max-w-[90%] sm:max-w-2xl overflow-x-auto"
-                      }`}>
-
+                      <div
+                        className={`px-4 py-3 break-words ${
+                          msg.role === "user"
+                            ? "bubble-user max-w-[70%] sm:max-w-md"
+                            : "bubble-ai max-w-[90%] sm:max-w-2xl overflow-x-auto"
+                        }`}
+                      >
                         {/* Sender label */}
-                        <div className={`text-[0.68rem] font-medium mb-1.5 tracking-wide ${
-                          msg.role === "user" ? "text-right text-[#FDFAF5]/60" : "text-left text-[#A09B92]"
-                        }`}>
-                          {msg.role === "user" ? msg.senderName : "ChatterlyAI"}
+                        <div
+                          className={`text-[0.68rem] font-medium mb-1.5 tracking-wide ${
+                            msg.role === "user"
+                              ? "text-right text-[#FDFAF5]/60"
+                              : "text-left text-[#A09B92]"
+                          }`}
+                        >
+                          {msg.role === "user" ? msg.senderName : "Mirai"}
                         </div>
 
                         <div className="markdown-content text-sm overflow-x-hidden">
@@ -2611,22 +1632,41 @@ return (
                               <div className="space-y-2">
                                 <textarea
                                   value={editingText}
-                                  onChange={(e) => setEditingText(e.target.value)}
+                                  onChange={(e) =>
+                                    setEditingText(e.target.value)
+                                  }
                                   className="w-full p-2 border border-[#D6CFBF] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#5C6B5C]/30 bg-[#FDFAF5] text-[#1C1F1A] text-sm"
                                   rows={2}
                                 />
                                 <div className="flex justify-end gap-3 text-xs">
-                                  <button onClick={confirmEditMessage} className="text-[#5C6B5C] hover:text-[#3A4A3A] font-medium bg-transparent border-none cursor-pointer">Send</button>
-                                  <button onClick={() => { setEditingIndex(null); setEditingText(""); }} className="text-[#A09B92] hover:text-[#1C1F1A] font-medium bg-transparent border-none cursor-pointer">Cancel</button>
+                                  <button
+                                    onClick={confirmEditMessage}
+                                    className="text-[#5C6B5C] hover:text-[#3A4A3A] font-medium bg-transparent border-none cursor-pointer"
+                                  >
+                                    Send
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setEditingIndex(null);
+                                      setEditingText("");
+                                    }}
+                                    className="text-[#A09B92] hover:text-[#1C1F1A] font-medium bg-transparent border-none cursor-pointer"
+                                  >
+                                    Cancel
+                                  </button>
                                 </div>
                               </div>
                             ) : msg.isImg ? (
-                              <div className={`max-w-xs bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl p-2 flex flex-col gap-2 ${msg.role === "user" ? "self-end" : "self-start"}`}>
+                              <div
+                                className={`max-w-xs bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl p-2 flex flex-col gap-2 ${msg.role === "user" ? "self-end" : "self-start"}`}
+                              >
                                 <img
                                   src={msg.imageUrl}
                                   alt="Generated"
                                   className="w-full h-auto rounded-lg object-cover cursor-pointer"
-                                  onClick={() => setFullscreenImage(msg.imageUrl)}
+                                  onClick={() =>
+                                    setFullscreenImage(msg.imageUrl)
+                                  }
                                 />
                                 <div className="flex items-center justify-between px-1">
                                   <button
@@ -2634,11 +1674,16 @@ return (
                                       try {
                                         const res = await fetch(msg.imageUrl);
                                         const blob = await res.blob();
-                                        const url = window.URL.createObjectURL(blob);
+                                        const url =
+                                          window.URL.createObjectURL(blob);
                                         const a = document.createElement("a");
-                                        a.href = url; a.download = "generated.png"; a.click();
+                                        a.href = url;
+                                        a.download = "generated.png";
+                                        a.click();
                                         window.URL.revokeObjectURL(url);
-                                      } catch (err) { console.error("Download failed", err); }
+                                      } catch (err) {
+                                        console.error("Download failed", err);
+                                      }
                                     }}
                                     className="msg-action text-[#5C6B5C]"
                                   >
@@ -2652,30 +1697,92 @@ return (
                                 components={{
                                   p: ({ children }) => {
                                     const totalLength = (msg.text || "").length;
-                                    const isShort = msg.role === "user" && totalLength <= 64;
-                                    return <p className={`mb-1 ${isShort ? "text-right" : ""}`}>{children}</p>;
+                                    const isShort =
+                                      msg.role === "user" && totalLength <= 64;
+                                    return (
+                                      <p
+                                        className={`mb-1 ${isShort ? "text-right" : ""}`}
+                                      >
+                                        {children}
+                                      </p>
+                                    );
                                   },
                                   img: ({ src, alt }) => (
-                                    <img src={src} alt={alt} className="rounded-lg max-w-full h-auto" />
+                                    <img
+                                      src={src}
+                                      alt={alt}
+                                      className="rounded-lg max-w-full h-auto"
+                                    />
                                   ),
                                   a: ({ href, children }) => (
-                                    <a href={href} className="text-[#5C6B5C] underline underline-offset-2">{children}</a>
+                                    <a
+                                      href={href}
+                                      className="text-[#5C6B5C] underline underline-offset-2"
+                                    >
+                                      {children}
+                                    </a>
                                   ),
                                   li: ({ children }) => <li>{children}</li>,
                                   code: ({ inline, children, className }) => {
-                                    const text = Array.isArray(children) ? children.join("") : String(children);
-                                    const isInlineFenced = !inline && !className && !text.includes("\n");
+                                    const text = Array.isArray(children)
+                                      ? children.join("")
+                                      : String(children);
+                                    const isInlineFenced =
+                                      !inline &&
+                                      !className &&
+                                      !text.includes("\n");
                                     if (inline || isInlineFenced) {
-                                      return <code className="inline-code">{text}</code>;
+                                      return (
+                                        <code className="inline-code">
+                                          {text}
+                                        </code>
+                                      );
                                     }
                                     return (
-                                      <div style={{ position: "relative", marginBottom: "1rem" }}>
-                                        <pre className="code-block"><code>{text}</code></pre>
-                                        <div style={{ position: "absolute", top: 8, right: 8, display: "flex", gap: "6px" }}>
-                                          <button onClick={() => handleCopy(text)} title="Copy" className="msg-action" style={{ color: "#D4EDAC" }}><FaCopy /></button>
-                                          <button onClick={() => sendToWhatsApp(text)} title="WhatsApp" className="msg-action" style={{ color: "#4ADE80" }}><FaWhatsapp /></button>
-                                          <button onClick={() => sendToGmail(text)} title="Gmail" className="msg-action">
-                                            <img src="/gmail.png" alt="Gmail" style={{ width: 14, height: 14 }} />
+                                      <div
+                                        style={{
+                                          position: "relative",
+                                          marginBottom: "1rem",
+                                        }}
+                                      >
+                                        <pre className="code-block">
+                                          <code>{text}</code>
+                                        </pre>
+                                        <div
+                                          style={{
+                                            position: "absolute",
+                                            top: 8,
+                                            right: 8,
+                                            display: "flex",
+                                            gap: "6px",
+                                          }}
+                                        >
+                                          <button
+                                            onClick={() => handleCopy(text)}
+                                            title="Copy"
+                                            className="msg-action"
+                                            style={{ color: "#D4EDAC" }}
+                                          >
+                                            <FaCopy />
+                                          </button>
+                                          <button
+                                            onClick={() => sendToWhatsApp(text)}
+                                            title="WhatsApp"
+                                            className="msg-action"
+                                            style={{ color: "#4ADE80" }}
+                                          >
+                                            <FaWhatsapp />
+                                          </button>
+                                          <button
+                                            onClick={() => sendToGmail(text)}
+                                            title="Gmail"
+                                            className="msg-action"
+                                          >
+                                            <img
+                                              src="/gmail.png"
+                                              alt="Gmail"
+                                              style={{ width: 14, height: 14 }}
+                                            />
                                           </button>
                                         </div>
                                       </div>
@@ -2683,11 +1790,17 @@ return (
                                   },
                                   table: ({ children }) => (
                                     <div style={{ overflowX: "auto" }}>
-                                      <table className="md-table">{children}</table>
+                                      <table className="md-table">
+                                        {children}
+                                      </table>
                                     </div>
                                   ),
-                                  thead: ({ children }) => <thead>{children}</thead>,
-                                  tbody: ({ children }) => <tbody>{children}</tbody>,
+                                  thead: ({ children }) => (
+                                    <thead>{children}</thead>
+                                  ),
+                                  tbody: ({ children }) => (
+                                    <tbody>{children}</tbody>
+                                  ),
                                   tr: ({ children }) => <tr>{children}</tr>,
                                   th: ({ children }) => <th>{children}</th>,
                                   td: ({ children }) => <td>{children}</td>,
@@ -2703,31 +1816,91 @@ return (
                                 className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
                                 onClick={() => setFullscreenImage(null)}
                               >
-                                <img src={fullscreenImage} className="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl" />
+                                <img
+                                  src={fullscreenImage}
+                                  className="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl"
+                                />
                               </div>
                             )}
                           </div>
 
                           {/* Message actions */}
                           {msg.text && (
-                            <div className={`flex gap-3 items-center mt-2 flex-wrap ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                            <div
+                              className={`flex gap-3 items-center mt-2 flex-wrap ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                            >
                               {msg.role === "user" && (
                                 <>
-                                  <button onClick={() => handleCopy(msg.text)} className="msg-action"><FaCopy size={11} /> Copy</button>
-                                  <button onClick={() => handleEditMessage(msg.id)} className="msg-action"><RiEditLine size={12} /> Edit</button>
-                                  <button onClick={() => setConfirmDelete({ show: true, id: msg.id })} className="msg-action danger"><MdDelete size={13} /> Delete</button>
+                                  <button
+                                    onClick={() => handleCopy(msg.text)}
+                                    className="msg-action"
+                                  >
+                                    <FaCopy size={11} /> Copy
+                                  </button>
+                                  <button
+                                    onClick={() => handleEditMessage(msg.id)}
+                                    className="msg-action"
+                                  >
+                                    <RiEditLine size={12} /> Edit
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      setConfirmDelete({
+                                        show: true,
+                                        id: msg.id,
+                                      })
+                                    }
+                                    className="msg-action danger"
+                                  >
+                                    <MdDelete size={13} /> Delete
+                                  </button>
                                 </>
                               )}
                               {msg.role !== "user" && !msg.isImg && (
                                 <>
-                                  <button onClick={() => handleCopy(msg.text)} className="msg-action"><FaCopy size={11} /> Copy</button>
-                                  <button onClick={() => sendToWhatsApp(msg.text)} className="msg-action" style={{ color: "#2A6B3A" }}><FaWhatsapp size={12} /> WhatsApp</button>
-                                  <button onClick={() => sendToGmail(msg.text)} className="msg-action">
-                                    <img src="/gmail.png" alt="Gmail" style={{ width: 12, height: 12 }} /> Gmail
+                                  <button
+                                    onClick={() => handleCopy(msg.text)}
+                                    className="msg-action"
+                                  >
+                                    <FaCopy size={11} /> Copy
                                   </button>
-                                  <button onClick={() => speakText(msg.text)} className="msg-action" style={{ color: "#5C6B5C" }}>
-                                    {isSpeaking ? (isPaused ? <FaPlay size={11} /> : <FaPause size={11} />) : <FaVolumeUp size={11} />}
-                                    {isPaused ? " Resume" : isSpeaking ? " Pause" : " Play"}
+                                  <button
+                                    onClick={() => sendToWhatsApp(msg.text)}
+                                    className="msg-action"
+                                    style={{ color: "#2A6B3A" }}
+                                  >
+                                    <FaWhatsapp size={12} /> WhatsApp
+                                  </button>
+                                  <button
+                                    onClick={() => sendToGmail(msg.text)}
+                                    className="msg-action"
+                                  >
+                                    <img
+                                      src="/gmail.png"
+                                      alt="Gmail"
+                                      style={{ width: 12, height: 12 }}
+                                    />{" "}
+                                    Gmail
+                                  </button>
+                                  <button
+                                    onClick={() => speakText(msg.text)}
+                                    className="msg-action"
+                                    style={{ color: "#5C6B5C" }}
+                                  >
+                                    {isSpeaking ? (
+                                      isPaused ? (
+                                        <FaPlay size={11} />
+                                      ) : (
+                                        <FaPause size={11} />
+                                      )
+                                    ) : (
+                                      <FaVolumeUp size={11} />
+                                    )}
+                                    {isPaused
+                                      ? " Resume"
+                                      : isSpeaking
+                                        ? " Pause"
+                                        : " Play"}
                                   </button>
                                 </>
                               )}
@@ -2741,13 +1914,24 @@ return (
                   {loading && (
                     <div className="flex justify-start">
                       <div className="bubble-ai px-4 py-2.5 text-sm text-[#A09B92] flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#5C6B5C] animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#5C6B5C] animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#5C6B5C] animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-[#5C6B5C] animate-bounce"
+                          style={{ animationDelay: "0ms" }}
+                        />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-[#5C6B5C] animate-bounce"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-[#5C6B5C] animate-bounce"
+                          style={{ animationDelay: "300ms" }}
+                        />
                       </div>
                     </div>
                   )}
-                  {error && <div className="text-sm text-[#B94040] px-2">{error}</div>}
+                  {error && (
+                    <div className="text-sm text-[#B94040] px-2">{error}</div>
+                  )}
                   <div ref={messagesEndRef} />
                 </div>
 
@@ -2776,7 +1960,10 @@ return (
                     />
 
                     {/* Mic */}
-                    <button onClick={toggleListening} className={`mic-btn flex-shrink-0 ${listening ? "listening" : ""}`}>
+                    <button
+                      onClick={toggleListening}
+                      className={`mic-btn flex-shrink-0 ${listening ? "listening" : ""}`}
+                    >
                       {listening ? <MicOff size={16} /> : <Mic size={16} />}
                     </button>
 
@@ -2784,7 +1971,10 @@ return (
                     {listening && (
                       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-[2px] text-center">
                         <div className="bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl shadow-xl px-6 py-8 w-[90%] max-w-sm relative flex flex-col items-center gap-4">
-                          <button onClick={toggleListening} className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-md hover:bg-[#EDE7DA] bg-transparent border-none cursor-pointer text-[#7A7568]">
+                          <button
+                            onClick={toggleListening}
+                            className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-md hover:bg-[#EDE7DA] bg-transparent border-none cursor-pointer text-[#7A7568]"
+                          >
                             <X size={14} />
                           </button>
                           <div className="relative mt-2">
@@ -2795,9 +1985,14 @@ return (
                           </div>
                           <p className="text-sm text-[#7A7568]">Listening…</p>
                           {liveTranscript && (
-                            <p className="text-sm text-[#4A4540] bg-[#F3EDE1] rounded-lg px-4 py-2 w-full text-center">{liveTranscript}</p>
+                            <p className="text-sm text-[#4A4540] bg-[#F3EDE1] rounded-lg px-4 py-2 w-full text-center">
+                              {liveTranscript}
+                            </p>
                           )}
-                          <button onClick={toggleListening} className="mt-2 bg-[#B94040] text-white px-5 py-2 rounded-lg text-sm hover:bg-[#9A3333] transition cursor-pointer border-none">
+                          <button
+                            onClick={toggleListening}
+                            className="mt-2 bg-[#B94040] text-white px-5 py-2 rounded-lg text-sm hover:bg-[#9A3333] transition cursor-pointer border-none"
+                          >
                             Stop &amp; continue
                           </button>
                         </div>
@@ -2805,12 +2000,16 @@ return (
                     )}
 
                     {/* Send */}
-                    <button onClick={handleSubmit} disabled={loading} className="send-btn flex-shrink-0">
+                    <button
+                      onClick={handleSubmit}
+                      disabled={loading}
+                      className="send-btn flex-shrink-0"
+                    >
                       <Send size={16} />
                     </button>
                   </div>
                   <p className="text-[0.68rem] text-[#C4BDB0] text-center mt-1.5">
-                    ChatterlyAI can make mistakes. Check important info.
+                    Mirai can make mistakes. Check important info.
                   </p>
                 </div>
               </div>
@@ -2819,17 +2018,27 @@ return (
               {confirmDelete.show && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px] z-50">
                   <div className="bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl shadow-xl p-5 w-[90%] max-w-sm">
-                    <h2 className="serif text-[1.1rem] text-[#1C1F1A] mb-2">Delete this message?</h2>
-                    <p className="text-sm text-[#7A7568] mb-5 leading-relaxed">This will permanently remove the message and its AI response.</p>
+                    <h2 className="serif text-[1.1rem] text-[#1C1F1A] mb-2">
+                      Delete this message?
+                    </h2>
+                    <p className="text-sm text-[#7A7568] mb-5 leading-relaxed">
+                      This will permanently remove the message and its AI
+                      response.
+                    </p>
                     <div className="flex justify-end gap-2 text-sm">
                       <button
-                        onClick={() => setConfirmDelete({ show: false, id: null })}
+                        onClick={() =>
+                          setConfirmDelete({ show: false, id: null })
+                        }
                         className="px-4 py-2 rounded-lg border border-[#D6CFBF] text-[#4A4540] hover:bg-[#EDE7DA] transition cursor-pointer bg-transparent"
                       >
                         Cancel
                       </button>
                       <button
-                        onClick={() => { handleDeleteMessage(confirmDelete.id); setConfirmDelete({ show: false, id: null }); }}
+                        onClick={() => {
+                          handleDeleteMessage(confirmDelete.id);
+                          setConfirmDelete({ show: false, id: null });
+                        }}
                         className="px-4 py-2 rounded-lg bg-[#B94040] text-white hover:bg-[#9A3333] transition cursor-pointer border-none"
                       >
                         Delete
