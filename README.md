@@ -6,7 +6,7 @@
 Mirai is a full-stack AI chat system built with a **Next.js frontend** and **three independent backend services**, deployed separately due to platform constraints (Vercel + Render free tiers).
 
 # Project Screenshots
-![Homepage](https://github.com/user-attachments/assets/cb131514-0eec-4562-832b-7e54c380f48b)
+![Homepage](https://github.com/user-attachments/assets/32e8fdfb-a236-4833-877f-b283ee983d17)
 ![Dashboard](https://github.com/user-attachments/assets/71457101-7da0-49bf-a953-b975b1859be9)
 ![Features](https://github.com/user-attachments/assets/41424310-4d60-4183-8a9c-180cb6e73337)
 ![AI Text](https://github.com/user-attachments/assets/ec9efbe3-b2b2-4a11-9d4d-1ed062fc7f9a)
