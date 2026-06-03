@@ -87,11 +87,11 @@ export default function Dashboard() {
   }, [userEmail]);
 
   const filteredFriends = friends.filter((f) =>
-    (f.name || f.email).toLowerCase().includes(searchFriend.toLowerCase())
+    (f.name || f.email).toLowerCase().includes(searchFriend.toLowerCase()),
   );
 
   const filteredAIChats = aiChats.filter((c) =>
-    (c.name || c.convoId).toLowerCase().includes(searchChat.toLowerCase())
+    (c.name || c.convoId).toLowerCase().includes(searchChat.toLowerCase()),
   );
 
   // handling the logout of a user
@@ -131,337 +131,7 @@ export default function Dashboard() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isSidebarOpen]);
 
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
-//       {/* Sidebar */}
-//       <div
-//         ref={sidebarRef}
-//         className={`fixed left-0 top-0 h-full w-64 bg-white/80 backdrop-blur-md border-r border-white/20 z-50 transform transition-transform duration-300 ${
-//           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-//         } lg:translate-x-0`}
-//       >
-//         <div className="p-4">
-//           <div className="flex items-center justify-between mb-8">
-//             <div className="flex items-center space-x-2">
-//               <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-//                 <img
-//                   src="/chatterly_logo.png"
-//                   alt="logo"
-//                   className="w-full h-full object-cover rounded-md"
-//                 />
-//               </div>
-//               <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-//                 ChatterlyAI
-//               </span>
-//             </div>
-
-//             {/* Close button pushed to the right */}
-//             <div className="flex-1 flex justify-end lg:hidden">
-//               <button
-//                 onClick={() => setIsSidebarOpen(false)}
-//                 className="p-1 hover:bg-gray-200 rounded-md"
-//               >
-//                 <X className="w-5 h-5 text-gray-600" />
-//               </button>
-//             </div>
-//           </div>
-//           <nav className="space-y-2">
-//             <Link
-//               href="/dashboard"
-//               className="flex items-center space-x-3 px-4 py-3 bg-purple-100 text-purple-700 rounded-xl"
-//             >
-//               <LayoutDashboard className="w-5 h-5" />
-//               <span>Dashboard</span>
-//             </Link>
-//             <Link
-//               href="/ask-doubt"
-//               className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-//             >
-//               <Lightbulb className="w-5 h-5" />
-//               <span>Chatbot</span>
-//             </Link>
-//             <Link
-//               href="/chat"
-//               className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-//             >
-//               <MessageCircleMore className="w-5 h-5" />
-//               <span>Chat with Friends</span>
-//             </Link>
-//           </nav>
-//         </div>
-
-//         <div className="absolute bottom-6 left-6 right-6">
-//           <button
-//             onClick={handleLogout}
-//             className="flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors w-full"
-//           >
-//             <LogOut className="w-5 h-5" />
-//             <span>Logout</span>
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="lg:ml-64">
-//         {/* Header */}
-//         <header className="bg-white/70 backdrop-blur-md border-b border-white/20 px-6 py-4">
-//           <div className="flex items-center justify-between">
-//             <div className="flex items-center space-x-4">
-//               <button
-//                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-//                 className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
-//               >
-//                 {isSidebarOpen ? (
-//                   <X className="w-6 h-6" />
-//                 ) : (
-//                   <Menu className="w-6 h-6" />
-//                 )}
-//               </button>
-//               <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-//             </div>
-
-//             <div className="flex items-center space-x-4">
-//               <Link href="/profile">
-//                 <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-300 cursor-pointer">
-//                   {user?.image ? (
-//                     <img
-//                       src={user.image}
-//                       alt="User"
-//                       className="w-full h-full object-cover"
-//                     />
-//                   ) : (
-//                     <div className="w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
-//                       <User className="w-4 h-4 text-white" />
-//                     </div>
-//                   )}
-//                 </div>
-//               </Link>
-//             </div>
-//           </div>
-//         </header>
-
-//         {/* Content */}
-//         <main className="p-6">
-//           {/* Welcome Section */}
-//           <div className="mb-8">
-//             <h2 className="text-3xl font-bold text-gray-800 mb-2">
-//               Welcome back
-//               {user?.name && user.name.trim() !== ""
-//                 ? `, ${user.name}! 👋`
-//                 : ","}
-//             </h2>
-
-//             <p className="text-gray-600">Ready to continue?</p>
-//           </div>
-
-//           {/* Stats Cards */}
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-//             {/* Chat with Friends Card */}
-//             <Link href="/chat" className="block">
-//               {" "}
-//               <div
-//                 className="group relative bg-gradient-to-br from-purple-500 via-purple-500 to-purple-600 
-// rounded-2xl p-8 text-white cursor-pointer overflow-hidden hover:shadow-xl transition-all 
-// duration-300 hover:scale-105 h-full flex flex-col justify-between"
-//               >
-//                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-//                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
-//                 <div className="relative z-10">
-//                   <div className="flex items-start justify-between mb-6">
-//                     <div>
-//                       <h3 className="text-2xl font-bold mb-1">
-//                         Chat with Friends
-//                       </h3>
-//                       <p className="text-purple-100 text-sm">
-//                         Connect & collaborate
-//                       </p>
-//                     </div>
-//                     <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-//                       <MessageCircle size={28} className="text-white" />
-//                     </div>
-//                   </div>
-//                   <div className="flex items-center gap-2 text-purple-100 text-sm font-medium group-hover:translate-x-1 transition-transform">
-//                     Start Chat <ChevronRight size={18} />
-//                   </div>
-//                 </div>
-//               </div>
-//             </Link>
-//             <Link href="/ask-doubt" className="block">
-//               {/* Chat with AI Card */}
-//               <div
-//                 className="group relative bg-gradient-to-br from-emerald-500 via-emerald-500 to-emerald-600 
-// rounded-2xl p-8 text-white cursor-pointer overflow-hidden hover:shadow-xl transition-all 
-// duration-300 hover:scale-105 h-full flex flex-col justify-between"
-//               >
-//                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-//                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
-//                 <div className="relative z-10">
-//                   <div className="flex items-start justify-between mb-6">
-//                     <div>
-//                       <h3 className="text-2xl font-bold mb-1">Chat with AI</h3>
-//                       <p className="text-emerald-100 text-sm">
-//                         Intelligent assistance
-//                       </p>
-//                     </div>
-//                     <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-//                       <Sparkles size={28} className="text-white" />
-//                     </div>
-//                   </div>
-//                   <div className="flex items-center gap-2 text-emerald-100 text-sm font-medium group-hover:translate-x-1 transition-transform">
-//                     Start Chat <ChevronRight size={18} />
-//                   </div>
-//                 </div>
-//               </div>
-//             </Link>
-//           </div>
-//           <div className="flex gap-1 mb-8 bg-slate-100 p-1 rounded-lg w-fit">
-//             <button
-//               onClick={() => setActiveTab("friends")}
-//               className={`px-6 py-2.5 rounded-md font-medium transition-all ${
-//                 activeTab === "friends"
-//                   ? "bg-white text-purple-600 shadow-sm"
-//                   : "text-slate-600 hover:text-slate-900"
-//               }`}
-//             >
-//               <div className="flex items-center gap-2">
-//                 <Users size={18} />
-//                 Friends
-//               </div>
-//             </button>
-//             <button
-//               onClick={() => setActiveTab("ai")}
-//               className={`px-6 py-2.5 rounded-md font-medium transition-all ${
-//                 activeTab === "ai"
-//                   ? "bg-white text-emerald-600 shadow-sm"
-//                   : "text-slate-600 hover:text-slate-900"
-//               }`}
-//             >
-//               <div className="flex items-center gap-2">
-//                 <Sparkles size={18} />
-//                 AI Chats
-//               </div>
-//             </button>
-//           </div>
-
-//           {/* Search and List */}
-//           {activeTab === "friends" ? (
-//             <div className="space-y-6">
-//               {/* Search */}
-//               <div className="relative">
-//                 <Search
-//                   className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-//                   size={20}
-//                 />
-//                 <input
-//                   type="text"
-//                   placeholder="Search friends..."
-//                   value={searchFriend}
-//                   onChange={(e) => setSearchFriend(e.target.value)}
-//                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 bg-white text-slate-900 placeholder-slate-500 transition-all"
-//                 />
-//               </div>
-
-//               {/* Friends List */}
-//               <div className="space-y-3">
-//                 {filteredFriends.length === 0 && (
-//                   <p className="text-sm text-gray-400">No friends found</p>
-//                 )}
-
-//                 {filteredFriends.map((f) => (
-//                   <div
-//                     key={f.chatbox_id}
-//                     onClick={() =>
-//                       router.push(`/chat?chatboxId=${f.chatbox_id}`)
-//                     }
-//                     className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200/50 hover:border-purple-300 hover:shadow-md transition-all cursor-pointer group"
-//                   >
-//                     <div className="flex items-center gap-4 flex-1">
-//                       <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-//                         <Users size={24} className="text-white" />
-//                       </div>
-//                       <div>
-//                         <p className="font-semibold text-slate-900">
-//                           {f.name || f.email}
-//                         </p>
-//                         <p className="text-sm text-slate-500">Active chat</p>
-//                       </div>
-//                     </div>
-//                     <div className="text-right">
-//                       <p className="text-xs text-slate-500">
-//                         {new Date(f.lastModified).toLocaleDateString()}
-//                       </p>
-//                       <ChevronRight
-//                         size={20}
-//                         className="text-slate-300 group-hover:text-purple-500 transition-colors mt-1"
-//                       />
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           ) : (
-//             <div className="space-y-6">
-//               {/* Search */}
-//               <div className="relative">
-//                 <Search
-//                   className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-//                   size={20}
-//                 />
-//                 <input
-//                   type="text"
-//                   placeholder="Search AI chats..."
-//                   value={searchChat}
-//                   onChange={(e) => setSearchChat(e.target.value)}
-//                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white text-slate-900 placeholder-slate-500 transition-all"
-//                 />
-//               </div>
-
-//               {/* AI Chats List */}
-//               <div className="space-y-3">
-//                 {filteredAIChats.length === 0 && (
-//                   <p className="text-sm text-gray-400">No chats found</p>
-//                 )}
-
-//                 {filteredAIChats.map((c) => (
-//                   <div
-//                     key={c._id}
-//                     onClick={() =>
-//                       router.push(`/ask-doubt?convoId=${c.convoId}`)
-//                     }
-//                     className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200/50 hover:border-emerald-300 hover:shadow-md transition-all cursor-pointer group"
-//                   >
-//                     <div className="flex items-center gap-4 flex-1">
-//                       <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
-//                         <Sparkles size={24} className="text-white" />
-//                       </div>
-//                       <div>
-//                         <p className="font-semibold text-slate-900">
-//                           {c.name || "Untitled Chat"}
-//                         </p>
-//                         <p className="text-sm text-slate-500">AI Assistant</p>
-//                       </div>
-//                     </div>
-//                     <div className="text-right">
-//                       <p className="text-xs text-slate-500">
-//                         {new Date(c.lastModified).toLocaleDateString()}
-//                       </p>
-//                       <ChevronRight
-//                         size={20}
-//                         className="text-slate-300 group-hover:text-emerald-500 transition-colors mt-1"
-//                       />
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
-
-return (
+  return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
@@ -557,7 +227,6 @@ return (
       `}</style>
 
       <div className="min-h-screen bg-[#F3EDE1]">
-
         {/* Sidebar overlay (mobile) */}
         <div
           className={`sidebar-overlay ${isSidebarOpen ? "show" : ""}`}
@@ -575,9 +244,15 @@ return (
           <div className="px-4 pt-5 pb-4 border-b border-[#D6CFBF] flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-md overflow-hidden border border-[#D6CFBF] flex-shrink-0">
-                <img src="/chatterly_logo.png" alt="logo" className="w-full h-full object-cover" />
+                <img
+                  src="/Mirai_logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="serif text-[1.05rem] text-[#1C1F1A]">ChatterlyAI</span>
+              <span className="serif text-[1.05rem] text-[#1C1F1A]">
+                Mirai
+              </span>
             </div>
             <button
               onClick={() => setIsSidebarOpen(false)}
@@ -589,8 +264,13 @@ return (
 
           {/* Nav */}
           <nav className="flex-1 px-3 py-4 space-y-0.5">
-            <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-3 mb-2">Menu</p>
-            <Link href="/dashboard" className={`nav-item ${true ? "active" : ""}`}>
+            <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-3 mb-2">
+              Menu
+            </p>
+            <Link
+              href="/dashboard"
+              className={`nav-item ${true ? "active" : ""}`}
+            >
               <LayoutDashboard size={15} />
               Dashboard
             </Link>
@@ -615,7 +295,6 @@ return (
 
         {/* ─── MAIN ─── */}
         <div className="lg:ml-60 flex flex-col min-h-screen">
-
           {/* Header */}
           <header className="sticky top-0 z-30 bg-[#F3EDE1]/90 backdrop-blur-md border-b border-[#D6CFBF] px-5 py-3.5 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -625,13 +304,19 @@ return (
               >
                 <Menu size={15} />
               </button>
-              <h1 className="serif text-[1.25rem] text-[#1C1F1A] tracking-tight">Dashboard</h1>
+              <h1 className="serif text-[1.25rem] text-[#1C1F1A] tracking-tight">
+                Dashboard
+              </h1>
             </div>
 
             <Link href="/profile">
               <div className="w-8 h-8 rounded-full overflow-hidden border border-[#D6CFBF] cursor-pointer">
                 {user?.image ? (
-                  <img src={user.image} alt="User" className="w-full h-full object-cover" />
+                  <img
+                    src={user.image}
+                    alt="User"
+                    className="w-full h-full object-cover"
+                  />
                 ) : (
                   <div className="w-full h-full bg-[#3A4A3A] flex items-center justify-center">
                     <User size={14} className="text-[#F3EDE1]" />
@@ -643,23 +328,27 @@ return (
 
           {/* Content */}
           <main className="flex-1 px-5 py-8 max-w-3xl w-full">
-
             {/* Welcome */}
             <div className="mb-8">
               <h2 className="serif text-[1.9rem] md:text-[2.3rem] leading-tight tracking-tight text-[#1C1F1A] mb-1">
                 Welcome back{user?.name?.trim() ? `, ${user.name}` : ""}.
               </h2>
-              <p className="text-sm text-[#A09B92]">Pick up where you left off.</p>
+              <p className="text-sm text-[#A09B92]">
+                Pick up where you left off.
+              </p>
             </div>
 
             {/* Quick-action cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-
               <Link href="/chat" className="qa-card qa-card-friends">
                 <div className="flex items-start justify-between mb-8">
                   <div>
-                    <p className="text-base font-medium mb-0.5">Chat with Friends</p>
-                    <p className="text-[0.78rem] text-[#FDFAF5]/60">Connect &amp; collaborate</p>
+                    <p className="text-base font-medium mb-0.5">
+                      Chat with Friends
+                    </p>
+                    <p className="text-[0.78rem] text-[#FDFAF5]/60">
+                      Connect &amp; collaborate
+                    </p>
                   </div>
                   <div className="qa-icon qa-icon-friends">
                     <MessageCircle size={20} />
@@ -673,8 +362,12 @@ return (
               <Link href="/ask-doubt" className="qa-card qa-card-ai">
                 <div className="flex items-start justify-between mb-8">
                   <div>
-                    <p className="text-base font-medium text-[#1C1F1A] mb-0.5">Chat with AI</p>
-                    <p className="text-[0.78rem] text-[#A09B92]">Intelligent assistance</p>
+                    <p className="text-base font-medium text-[#1C1F1A] mb-0.5">
+                      Chat with AI
+                    </p>
+                    <p className="text-[0.78rem] text-[#A09B92]">
+                      Intelligent assistance
+                    </p>
                   </div>
                   <div className="qa-icon qa-icon-ai">
                     <Sparkles size={20} />
@@ -711,18 +404,22 @@ return (
                     type="text"
                     placeholder="Search friends…"
                     value={searchFriend}
-                    onChange={e => setSearchFriend(e.target.value)}
+                    onChange={(e) => setSearchFriend(e.target.value)}
                     className="search-input"
                   />
                 </div>
 
                 {filteredFriends.length === 0 && (
-                  <p className="text-sm text-[#C4BDB0] py-4">No friends found.</p>
+                  <p className="text-sm text-[#C4BDB0] py-4">
+                    No friends found.
+                  </p>
                 )}
-                {filteredFriends.map(f => (
+                {filteredFriends.map((f) => (
                   <div
                     key={f.chatbox_id}
-                    onClick={() => router.push(`/chat?chatboxId=${f.chatbox_id}`)}
+                    onClick={() =>
+                      router.push(`/chat?chatboxId=${f.chatbox_id}`)
+                    }
                     className="list-item"
                   >
                     <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -730,12 +427,16 @@ return (
                         <Users size={18} />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-medium text-[#1C1F1A] truncate">{f.name || f.email}</p>
+                        <p className="text-sm font-medium text-[#1C1F1A] truncate">
+                          {f.name || f.email}
+                        </p>
                         <p className="text-xs text-[#A09B92]">Active chat</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0 ml-3">
-                      <p className="text-xs text-[#C4BDB0]">{new Date(f.lastModified).toLocaleDateString()}</p>
+                      <p className="text-xs text-[#C4BDB0]">
+                        {new Date(f.lastModified).toLocaleDateString()}
+                      </p>
                       <ChevronRight size={16} className="item-chevron" />
                     </div>
                   </div>
@@ -749,7 +450,7 @@ return (
                     type="text"
                     placeholder="Search AI chats…"
                     value={searchChat}
-                    onChange={e => setSearchChat(e.target.value)}
+                    onChange={(e) => setSearchChat(e.target.value)}
                     className="search-input"
                   />
                 </div>
@@ -757,10 +458,12 @@ return (
                 {filteredAIChats.length === 0 && (
                   <p className="text-sm text-[#C4BDB0] py-4">No chats found.</p>
                 )}
-                {filteredAIChats.map(c => (
+                {filteredAIChats.map((c) => (
                   <div
                     key={c._id}
-                    onClick={() => router.push(`/ask-doubt?convoId=${c.convoId}`)}
+                    onClick={() =>
+                      router.push(`/ask-doubt?convoId=${c.convoId}`)
+                    }
                     className="list-item"
                   >
                     <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -768,12 +471,16 @@ return (
                         <Sparkles size={18} />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-medium text-[#1C1F1A] truncate">{c.name || "Untitled Chat"}</p>
+                        <p className="text-sm font-medium text-[#1C1F1A] truncate">
+                          {c.name || "Untitled Chat"}
+                        </p>
                         <p className="text-xs text-[#A09B92]">AI Assistant</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0 ml-3">
-                      <p className="text-xs text-[#C4BDB0]">{new Date(c.lastModified).toLocaleDateString()}</p>
+                      <p className="text-xs text-[#C4BDB0]">
+                        {new Date(c.lastModified).toLocaleDateString()}
+                      </p>
                       <ChevronRight size={16} className="item-chevron" />
                     </div>
                   </div>
