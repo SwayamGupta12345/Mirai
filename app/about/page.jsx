@@ -9,14 +9,14 @@ const authors = [
     linkedin: "https://www.linkedin.com/in/swayamgupta12",
     email:    "swayamsam2005@gmail.com",
   },
-  {
-    name: "Rishu",
-    role: "Builder & Developer",
-    img: "./rishu.jpg",
-    github:   "https://github.com/rishugoyal805",
-    linkedin: "https://www.linkedin.com/in/rishu0405",
-    email:    "rishugoyal6800@gmail.com",
-  },
+  // {
+  //   name: "Rishu",
+  //   role: "Builder & Developer",
+  //   img: "./rishu.jpg",
+  //   github:   "https://github.com/rishugoyal805",
+  //   linkedin: "https://www.linkedin.com/in/rishu0405",
+  //   email:    "rishugoyal6800@gmail.com",
+  // },
 ];
 
 const stack = [
@@ -48,7 +48,7 @@ export default function About() {
           <div className="mb-10 pb-8 border-b border-[#D6CFBF]">
             <div className="flex items-center gap-2.5 mb-5">
               <div className="w-7 h-7 rounded-md overflow-hidden border border-[#D6CFBF]">
-                <img src="/chatterly_logo.png" alt="Mirai" className="w-full h-full object-cover" />
+                <img src="/Mirai_logo.png" alt="Mirai" className="w-full h-full object-cover" />
               </div>
               <span className="serif text-base text-[#7A7568]">Mirai</span>
             </div>

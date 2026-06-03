@@ -68,13 +68,13 @@ const authors = [
     linkedin: "https://www.linkedin.com/in/swayamgupta12",
     email: "swayamsam2005@gmail.com",
   },
-  {
-    name: "Rishu",
-    img: "./rishu.jpg",
-    github: "https://github.com/rishugoyal805",
-    linkedin: "https://www.linkedin.com/in/rishu0405",
-    email: "rishugoyal6800@gmail.com",
-  },
+  // {
+  //   name: "Rishu",
+  //   img: "./rishu.jpg",
+  //   github: "https://github.com/rishugoyal805",
+  //   linkedin: "https://www.linkedin.com/in/rishu0405",
+  //   email: "rishugoyal6800@gmail.com",
+  // },
 ];
 
 const pills = [
@@ -163,7 +163,7 @@ export default function LandingPage() {
           <Link href="/" className="flex items-center gap-2.5 no-underline">
             <div className="w-7 h-7 rounded-md overflow-hidden border border-[#D6CFBF] flex-shrink-0">
               <img
-                src="/chatterly_logo.png"
+                src="/Mirai_logo.png"
                 alt="Mirai"
                 className="w-full h-full object-cover"
               />
@@ -368,7 +368,7 @@ export default function LandingPage() {
                 <div className="md:col-span-2">
                   <div className="flex items-center gap-2 mb-4">
                     <img
-                      src="/chatterly_logo.png"
+                      src="/Mirai_logo.png"
                       alt="Mirai"
                       className="w-6 h-6 rounded object-cover border border-white/10"
                     />
