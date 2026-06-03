@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "ChatterlyAI - Chat Together, Think Smarter",
+  title: "Mirai - Chat Together, Think Smarter",
   description:
     "Join thousands of people who are revolutionizing their Working experience with collaborative AI assistance with friends.",
   description: "A safe AI demo built for educational purposes. No data stored.",
