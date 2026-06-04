@@ -1241,11 +1241,11 @@ export default function AskDoubtClient() {
             } lg:translate-x-0`}
           >
             {/* Logo */}
-            <div className="px-4 pt-5 pb-4 border-b border-[#D6CFBF] flex items-center justify-between flex-shrink-0">
+            <div className="px-4 py-[16.75px] border-b border-[#D6CFBF] flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-md overflow-hidden border border-[#D6CFBF] flex-shrink-0">
                   <img
-                    src="/chatterly_logo.png"
+                    src="/Mirai_logo.png"
                     alt="logo"
                     className="w-full h-full object-cover"
                   />
@@ -1464,7 +1464,6 @@ export default function AskDoubtClient() {
                   AI Chatbot
                 </h1>
               </div>
-
               <div className="flex items-center gap-2">
                 {convoId != "Temporary Chat" && (
                   <button
@@ -1557,7 +1556,7 @@ export default function AskDoubtClient() {
                       className="flex items-center gap-1.5 text-sm bg-[#FDFAF5] border border-[#D6CFBF] text-[#1C1F1A] px-3 py-2 rounded-lg hover:bg-[#EDE7DA] transition cursor-pointer"
                     >
                       <img
-                        src="/chatterly_logo.png"
+                        src="/Mirai_logo.png"
                         alt="Mirai"
                         className="w-4 h-4 rounded"
                       />{" "}
