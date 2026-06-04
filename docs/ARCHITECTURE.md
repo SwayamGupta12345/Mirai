@@ -1,6 +1,6 @@
-# System Architecture (ChatterlyAI)
+# System Architecture (Mirai)
 
-ChatterlyAI is a microservice-based application with independent services communicating via JSON APIs. Each service is deployed separately to optimize resource usage and isolate workloads.
+Mirai is a microservice-based application with independent services communicating via JSON APIs. Each service is deployed separately to optimize resource usage and isolate workloads.
 
 ## Components
 
