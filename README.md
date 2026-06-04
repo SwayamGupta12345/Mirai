@@ -7,12 +7,13 @@ Mirai is a full-stack AI chat system built with a **Next.js frontend** and **thr
 
 # Project Screenshots
 ![Homepage](https://github.com/user-attachments/assets/32e8fdfb-a236-4833-877f-b283ee983d17)
-![Dashboard](https://github.com/user-attachments/assets/71457101-7da0-49bf-a953-b975b1859be9)
-![Features](https://github.com/user-attachments/assets/41424310-4d60-4183-8a9c-180cb6e73337)
-![AI Text](https://github.com/user-attachments/assets/ec9efbe3-b2b2-4a11-9d4d-1ed062fc7f9a)
-![Share](https://github.com/user-attachments/assets/3183846b-0198-4f74-ac9d-463babf54e9b)
-![Image Generated](https://github.com/user-attachments/assets/aeb22808-3533-4120-bf39-a9a75d288705)
-![Chat With Friends](https://github.com/user-attachments/assets/da796204-5138-4c9f-a8d1-abd150f64774)
+![Dashboard](https://github.com/user-attachments/assets/3d858362-0683-4815-9c48-c7215479365a)
+![Features](https://github.com/user-attachments/assets/71843d98-d95c-43a9-a6b9-9df8abf4e464)
+![AI Text](https://github.com/user-attachments/assets/953e1d9d-7fc8-43d2-a4f9-69def2aac7b5)
+![Share](https://github.com/user-attachments/assets/653783f2-5a10-482f-9cec-1c1b8b345ad7)
+![Image Generated](https://github.com/user-attachments/assets/a006609d-e60f-46bc-a056-0efea23311c9)
+![Add Friend](https://github.com/user-attachments/assets/714c4549-f570-4c85-9bfb-914eff63a01d)
+![Chat With Friends](https://github.com/user-attachments/assets/bce4bfad-2808-4739-931c-2b76c9af3cd0)
 
 
 ## What this project does
