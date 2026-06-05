@@ -31,7 +31,7 @@ export default function FallbackLayout({ isSidebarOpen, setIsSidebarOpen }) {
         <div className="px-4 pt-5 pb-4 border-b border-[#D6CFBF] flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-md overflow-hidden border border-[#D6CFBF] flex-shrink-0">
-              <img src="/chatterly_logo.png" alt="logo" className="w-full h-full object-cover" />
+              <img src="/Mirai_logo.png" alt="logo" className="w-full h-full object-cover" />
             </div>
             <span className="serif text-[1.05rem] text-[#1C1F1A]">Mirai</span>
           </div>

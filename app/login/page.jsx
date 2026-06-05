@@ -151,7 +151,7 @@ export default function LoginPage() {
 //             <div className="flex justify-center mb-4">
 //               <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center">
 //                 <img
-//                   src="/chatterly_logo.png"
+//                   src="/Mirai_logo.png"
 //                   alt="logo"
 //                   className="w-full h-full object-cover rounded-md"
 //                 />
@@ -353,7 +353,7 @@ return (
             {/* Header */}
             <div className="flex items-center gap-3 mb-7">
               <div className="w-9 h-9 rounded-lg overflow-hidden border border-[#D6CFBF] flex-shrink-0">
-                <img src="/chatterly_logo.png" alt="logo" className="w-full h-full object-cover" />
+                <img src="/Mirai_logo.png" alt="logo" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h1 className="serif text-[1.5rem] leading-tight tracking-tight text-[#1C1F1A]">Welcome back</h1>
