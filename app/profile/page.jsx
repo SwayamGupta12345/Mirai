@@ -83,7 +83,7 @@ export default function ProfilePage() {
   };
 
   // --- PASSWORD VALIDATION ---
-  const { newPass: password = "", confirmPass = "" , oldPass = ""} = formData;
+  const { newPass: password = "", confirmPass = "", oldPass = "" } = formData;
 
   const passwordChecks = {
     length: password.length >= 8,
@@ -178,341 +178,7 @@ export default function ProfilePage() {
     }
   };
 
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
-//       {/* Mobile Sidebar Overlay */}
-//       {isSidebarOpen && (
-//         <div
-//           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-//           onClick={() => setIsSidebarOpen(false)}
-//         />
-//       )}
-
-//       {/* Sidebar */}
-//       <div
-//         className={`fixed left-0 top-0 h-full w-64 bg-white/80 backdrop-blur-md border-r border-white/20 z-50 transform transition-transform duration-300 ${
-//           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-//         } lg:translate-x-0`}
-//       >
-//         <div className="p-6">
-//           <div className="flex items-center space-x-2 mb-8">
-//             <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-//               <img
-//                 src="/chatterly_logo.png"
-//                 alt="logo"
-//                 className="w-full h-full object-cover rounded-md"
-//               />
-//             </div>
-//             <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-//               ChatterlyAI
-//             </span>
-//           </div>
-
-//           <nav className="space-y-2">
-//             <Link
-//               href="/dashboard"
-//               className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-//             >
-//               <LayoutDashboard className="w-5 h-5" />
-//               <span>Dashboard</span>
-//             </Link>
-//             <Link
-//               href="/ask-doubt"
-//               className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-//             >
-//               <Lightbulb className="w-5 h-5" />
-//               <span>Chatbot</span>
-//             </Link>
-//             <Link
-//               href="/chat"
-//               className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-//             >
-//               <MessageCircleMore className="w-5 h-5" />
-//               <span>Chat with Friends</span>
-//             </Link>
-//             {/* <Link href="/profile" className="flex items-center space-x-3 px-4 py-3 bg-purple-100 text-purple-700 rounded-xl">
-//               <User className="w-5 h-5" />
-//               <span>Profile</span>
-//             </Link> */}
-//           </nav>
-//         </div>
-
-//         <div className="absolute bottom-6 left-6 right-6">
-//           <button
-//             onClick={handleLogout}
-//             className="flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors w-full"
-//           >
-//             <LogOut className="w-5 h-5" />
-//             <span>Logout</span>
-//           </button>
-//         </div>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="lg:ml-64">
-//         {/* Header */}
-//         <header className="bg-white/70 backdrop-blur-md border-b border-white/20 px-6 py-4">
-//           <div className="flex items-center justify-between">
-//             <div className="flex items-center space-x-4">
-//               <button
-//                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-//                 className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
-//               >
-//                 {isSidebarOpen ? (
-//                   <X className="w-6 h-6" />
-//                 ) : (
-//                   <Menu className="w-6 h-6" />
-//                 )}
-//               </button>
-//               {/* <Link
-//                 href="/dashboard"
-//                 className="flex items-center text-purple-600 hover:text-purple-700 transition-colors"
-//               >
-//                 <ArrowLeft className="w-5 h-5 mr-2" />
-//                 Back to Dashboard
-//               </Link> */}
-//             </div>
-//             {/* Right section: Notification + Profile */}
-//             <div className="flex items-center space-x-4">
-//               {/* <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
-//                 <Bell className="w-6 h-6 text-gray-600" />
-//                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
-//               </button> */}
-//               {/* <Link href="/profile">
-//                 <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center cursor-pointer">
-//                   <User className="w-5 h-5 text-white" />
-//                 </div>
-//               </Link> */}
-//               <Link href="/profile">
-//                 <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-300 cursor-pointer">
-//                   {user?.image ? (
-//                     <img
-//                       src={user.image}
-//                       alt="User"
-//                       className="w-full h-full object-cover"
-//                     />
-//                   ) : (
-//                     <div className="w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
-//                       <User className="w-4 h-4 text-white" />
-//                     </div>
-//                   )}
-//                 </div>
-//               </Link>
-//             </div>
-//           </div>
-//         </header>
-
-//         {/* Content */}
-//         <main className="p-6">
-//           {/* Page Header */}
-//           <div className="mb-8">
-//             <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-3xl p-8">
-//               <div className="flex items-center space-x-4">
-//                 <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
-//                   {user?.image ? (
-//                     <img
-//                       src={user.image}
-//                       alt="User"
-//                       className="w-full h-full object-contain rounded-xl"
-//                     />
-//                   ) : (
-//                     <div className="w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
-//                       <User className="w-4 h-4 text-white" />
-//                     </div>
-//                   )}
-//                 </div>
-//                 <div>
-//                   <h1 className="text-3xl font-bold mb-2">Profile Settings</h1>
-//                   <p className="text-purple-100">
-//                     Manage your account information and preferences
-//                   </p>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//           {/* <div>
-//             <h1>{formData.name}</h1>
-//           </div> */}
-//           <div className="max-w-2xl mx-auto">
-//             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-//               {/* Success Message */}
-//               {success && (
-//                 <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-6">
-//                   {success}
-//                 </div>
-//               )}
-
-//               {/* Error Message */}
-//               {error && (
-//                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6">
-//                   {error}
-//                 </div>
-//               )}
-
-//               {isLoading ? (
-//                 <div className="space-y-6">
-//                   {[...Array(4)].map((_, index) => (
-//                     <div key={index} className="animate-pulse">
-//                       <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
-//                       <div className="h-12 bg-gray-200 rounded"></div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               ) : (
-//                 <form onSubmit={handleSubmit} className="space-y-6">
-//                   <div>
-//                     <label
-//                       htmlFor="name"
-//                       className="block text-sm font-medium text-gray-700 mb-2"
-//                     >
-//                       <div className="flex items-center">
-//                         <User className="w-4 h-4 mr-2" />
-//                         Full Name
-//                       </div>
-//                     </label>
-//                     <input
-//                       type="text"
-//                       id="name"
-//                       name="name"
-//                       value={formData.name}
-//                       onChange={handleChange}
-//                       required
-//                       className="w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-//                       placeholder="Enter your full name"
-//                     />
-//                   </div>
-
-//                   <div>
-//                     <label
-//                       htmlFor="email"
-//                       className="block text-sm font-medium text-gray-700 mb-2"
-//                     >
-//                       <div className="flex items-center">
-//                         <Mail className="w-4 h-4 mr-2" />
-//                         Email Address
-//                       </div>
-//                     </label>
-//                     <input
-//                       type="email"
-//                       id="email"
-//                       name="email"
-//                       value={formData.email}
-//                       onChange={handleChange}
-//                       required
-//                       className="w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
-//                       placeholder="Enter your email address"
-//                       disabled
-//                     />
-//                   </div>
-//                   <div>
-//                     <label
-//                       htmlFor="oldPass"
-//                       className="block text-sm font-medium text-gray-700 mb-2"
-//                     >
-//                       <div className="flex items-center">
-//                         <Lock className="w-4 h-4 mr-2" />
-//                         Old Password
-//                       </div>
-//                     </label>
-//                     <input
-//                       type="password"
-//                       id="oldPass"
-//                       name="oldPass"
-//                       value={formData.oldPass}
-//                       onChange={handleChange}
-//                       required
-//                       className="w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-//                       placeholder="Enter old password"
-//                     />
-//                   </div>
-//                   <div>
-//                     <label
-//                       htmlFor="newPass"
-//                       className="block text-sm font-medium text-gray-700 mb-2"
-//                     >
-//                       <div className="flex items-center">
-//                         <Lock className="w-4 h-4 mr-2" />
-//                         New Password
-//                       </div>
-//                     </label>
-//                     <input
-//                       type="password"
-//                       id="newPass"
-//                       name="newPass"
-//                       value={formData.newPass}
-//                       onChange={handleChange}
-//                       required
-//                       className="w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
-//                       placeholder="Enter new password"
-//                     />
-//                   </div>
-//                   <div>
-//                     <label className="block text-sm font-medium text-gray-700 mb-2">
-//                       Confirm New Password
-//                     </label>
-//                     <input
-//                       type="password"
-//                       name="confirmPass"
-//                       value={formData.confirmPass}
-//                       onChange={handleChange}
-//                       required
-//                       className="w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
-//                       placeholder="Confirm new password"
-//                     />
-//                   </div>
-
-//                   {/* Password Rules */}
-//                   {password.length > 0 && (
-//                     <div className="mt-2 space-y-1">
-//                       <PasswordCheck
-//                         label="At least 8 characters"
-//                         valid={passwordChecks.length}
-//                       />
-//                       <PasswordCheck
-//                         label="One uppercase letter"
-//                         valid={passwordChecks.upper}
-//                       />
-//                       <PasswordCheck
-//                         label="One number"
-//                         valid={passwordChecks.number}
-//                       />
-//                       <PasswordCheck
-//                         label="One special character"
-//                         valid={passwordChecks.special}
-//                       />
-//                       <PasswordCheck
-//                         label="Passwords match"
-//                         valid={passwordChecks.match}
-//                       />
-//                     </div>
-//                   )}
-//                   <button
-//                     type="submit"
-//                     disabled={isSaving}
-//                     className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
-//                   >
-//                     {isSaving ? (
-//                       <>
-//                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-//                         Saving...
-//                       </>
-//                     ) : (
-//                       <>
-//                         <Save className="w-5 h-5 mr-2" />
-//                         Save Changes
-//                       </>
-//                     )}
-//                   </button>
-//                 </form>
-//               )}
-//             </div>
-//           </div>
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
-return (
+  return (
     <div className="min-h-screen bg-[#F3EDE1] flex flex-col">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
@@ -544,7 +210,10 @@ return (
 
       {/* Overlay */}
       {isSidebarOpen && (
-        <div className="sidebar-overlay show" onClick={() => setIsSidebarOpen(false)} />
+        <div
+          className="sidebar-overlay show"
+          onClick={() => setIsSidebarOpen(false)}
+        />
       )}
 
       {/* ─── SIDEBAR ─── */}
@@ -554,19 +223,33 @@ return (
         } lg:translate-x-0`}
       >
         {/* Logo */}
-        <div className="px-4 pt-5 pb-4 border-b border-[#D6CFBF] flex items-center gap-2 flex-shrink-0">
+        <div className="px-4 py-4 border-b border-[#D6CFBF] flex items-center gap-2 flex-shrink-0">
           <div className="w-7 h-7 rounded-md overflow-hidden border border-[#D6CFBF] flex-shrink-0">
-            <img src="/chatterly_logo.png" alt="logo" className="w-full h-full object-cover" />
+            <img
+              src="/Mirai_logo.png"
+              alt="logo"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <span className="serif text-[1.05rem] text-[#1C1F1A]">ChatterlyAI</span>
+          <span className="serif text-[1.05rem] text-[#1C1F1A]">
+            Mirai
+          </span>
         </div>
 
         {/* Nav */}
         <nav className="px-3 py-4 space-y-0.5 flex-1">
-          <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-3 mb-2">Menu</p>
-          <Link href="/dashboard"  className="nav-item"><LayoutDashboard size={15} /> Dashboard</Link>
-          <Link href="/ask-doubt"  className="nav-item"><Lightbulb size={15} /> AI Chatbot</Link>
-          <Link href="/chat"       className="nav-item"><MessageCircleMore size={15} /> Chat with Friends</Link>
+          <p className="text-[0.62rem] font-medium tracking-[0.1em] uppercase text-[#C4BDB0] px-3 mb-2">
+            Menu
+          </p>
+          <Link href="/dashboard" className="nav-item">
+            <LayoutDashboard size={15} /> Dashboard
+          </Link>
+          <Link href="/ask-doubt" className="nav-item">
+            <Lightbulb size={15} /> AI Chatbot
+          </Link>
+          <Link href="/chat" className="nav-item">
+            <MessageCircleMore size={15} /> Chat with Friends
+          </Link>
         </nav>
 
         {/* Logout */}
@@ -579,7 +262,6 @@ return (
 
       {/* ─── MAIN ─── */}
       <div className="lg:ml-60 flex flex-col flex-1">
-
         {/* Header */}
         <header className="bg-[#F3EDE1]/90 backdrop-blur-md border-b border-[#D6CFBF] px-5 py-3.5 sticky top-0 z-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -589,13 +271,19 @@ return (
             >
               {isSidebarOpen ? <X size={15} /> : <Menu size={15} />}
             </button>
-            <h1 className="serif text-[1.2rem] text-[#1C1F1A] tracking-tight">Profile</h1>
+            <h1 className="serif text-[1.2rem] text-[#1C1F1A] tracking-tight">
+              Profile
+            </h1>
           </div>
 
           <Link href="/profile">
             <div className="w-8 h-8 rounded-full overflow-hidden border border-[#D6CFBF] cursor-pointer">
               {user?.image ? (
-                <img src={user.image} alt="User" className="w-full h-full object-cover" />
+                <img
+                  src={user.image}
+                  alt="User"
+                  className="w-full h-full object-cover"
+                />
               ) : (
                 <div className="w-full h-full bg-[#3A4A3A] flex items-center justify-center">
                   <User size={14} className="text-[#F3EDE1]" />
@@ -607,12 +295,15 @@ return (
 
         {/* Content */}
         <main className="flex-1 px-5 py-8 max-w-xl w-full mx-auto">
-
           {/* Profile hero strip */}
           <div className="bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl px-6 py-5 flex items-center gap-4 mb-8">
             <div className="w-14 h-14 rounded-full overflow-hidden border border-[#D6CFBF] flex-shrink-0 bg-[#3A4A3A] flex items-center justify-center">
               {user?.image ? (
-                <img src={user.image} alt="User" className="w-full h-full object-cover" />
+                <img
+                  src={user.image}
+                  alt="User"
+                  className="w-full h-full object-cover"
+                />
               ) : (
                 <User size={22} className="text-[#F3EDE1]" />
               )}
@@ -621,13 +312,14 @@ return (
               <p className="serif text-[1.25rem] text-[#1C1F1A] leading-tight tracking-tight">
                 {user?.name || "Your Profile"}
               </p>
-              <p className="text-xs text-[#A09B92] mt-0.5">Manage your account information</p>
+              <p className="text-xs text-[#A09B92] mt-0.5">
+                Manage your account information
+              </p>
             </div>
           </div>
 
           {/* Form card */}
           <div className="bg-[#FDFAF5] border border-[#D6CFBF] rounded-xl p-6 md:p-8">
-
             {/* Success */}
             {success && (
               <div className="bg-[#EAF4EE] border border-[#A8D5B5] text-[#2A6B3A] text-sm px-4 py-3 rounded-lg mb-6">
@@ -652,10 +344,12 @@ return (
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-
                 {/* Full name */}
                 <div>
-                  <label htmlFor="name" className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">
+                  <label
+                    htmlFor="name"
+                    className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5"
+                  >
                     <User size={12} /> Full name
                   </label>
                   <input
@@ -672,7 +366,10 @@ return (
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="email" className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">
+                  <label
+                    htmlFor="email"
+                    className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5"
+                  >
                     <Mail size={12} /> Email address
                   </label>
                   <input
@@ -690,11 +387,16 @@ return (
 
                 {/* Divider */}
                 <div className="h-px bg-[#D6CFBF] my-1" />
-                <p className="text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em]">Change password</p>
+                <p className="text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em]">
+                  Change password
+                </p>
 
                 {/* Old password */}
                 <div>
-                  <label htmlFor="oldPass" className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">
+                  <label
+                    htmlFor="oldPass"
+                    className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5"
+                  >
                     <Lock size={12} /> Current password
                   </label>
                   <input
@@ -711,7 +413,10 @@ return (
 
                 {/* New password */}
                 <div>
-                  <label htmlFor="newPass" className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">
+                  <label
+                    htmlFor="newPass"
+                    className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5"
+                  >
                     <Lock size={12} /> New password
                   </label>
                   <input
@@ -728,7 +433,10 @@ return (
 
                 {/* Confirm password */}
                 <div>
-                  <label htmlFor="confirmPass" className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5">
+                  <label
+                    htmlFor="confirmPass"
+                    className="flex items-center gap-1.5 text-xs font-medium text-[#7A7568] uppercase tracking-[0.08em] mb-1.5"
+                  >
                     <Lock size={12} /> Confirm new password
                   </label>
                   <input
@@ -747,17 +455,32 @@ return (
                 {password.length > 0 && (
                   <div className="bg-[#F3EDE1] border border-[#D6CFBF] rounded-lg px-4 py-3 space-y-1.5">
                     {[
-                      { label: "At least 8 characters",  valid: passwordChecks.length  },
-                      { label: "One uppercase letter",    valid: passwordChecks.upper   },
-                      { label: "One number",              valid: passwordChecks.number  },
-                      { label: "One special character",   valid: passwordChecks.special },
-                      { label: "Passwords match",         valid: passwordChecks.match   },
+                      {
+                        label: "At least 8 characters",
+                        valid: passwordChecks.length,
+                      },
+                      {
+                        label: "One uppercase letter",
+                        valid: passwordChecks.upper,
+                      },
+                      { label: "One number", valid: passwordChecks.number },
+                      {
+                        label: "One special character",
+                        valid: passwordChecks.special,
+                      },
+                      { label: "Passwords match", valid: passwordChecks.match },
                     ].map(({ label, valid }) => (
                       <div key={label} className="flex items-center gap-2">
-                        <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center flex-shrink-0 text-[9px] font-bold ${valid ? "bg-[#5C6B5C] text-white" : "bg-[#D6CFBF] text-[#A09B92]"}`}>
+                        <span
+                          className={`w-3.5 h-3.5 rounded-full flex items-center justify-center flex-shrink-0 text-[9px] font-bold ${valid ? "bg-[#5C6B5C] text-white" : "bg-[#D6CFBF] text-[#A09B92]"}`}
+                        >
                           {valid ? "✓" : "·"}
                         </span>
-                        <span className={`text-xs transition-colors ${valid ? "text-[#3A4A3A]" : "text-[#A09B92]"}`}>{label}</span>
+                        <span
+                          className={`text-xs transition-colors ${valid ? "text-[#3A4A3A]" : "text-[#A09B92]"}`}
+                        >
+                          {label}
+                        </span>
                       </div>
                     ))}
                   </div>

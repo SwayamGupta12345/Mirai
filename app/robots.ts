@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://chatterlyai.vercel.app/sitemap.xml",
+    sitemap: "https://mirai-pi.vercel.app/sitemap.xml",
   };
 }
