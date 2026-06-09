@@ -466,7 +466,7 @@ export default function LandingPage() {
 
               <div className="border-t border-white/8 pt-5 flex flex-col sm:flex-row justify-between gap-2">
                 <p className="text-xs text-white/22">
-                  © 2026 Mirai. All rights reserved.
+                  © {new Date().getFullYear()} Mirai. All rights reserved.
                 </p>
                 <p className="text-xs text-white/22">
                   Built by students, for everyone.
