@@ -43,6 +43,7 @@ import {
   FaStop,
 } from "react-icons/fa";
 import { getSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import { io } from "socket.io-client";
@@ -1077,22 +1078,24 @@ export default function AskDoubtClient() {
     speechSynthesis.speak(utterance);
   };
 
-  // handling the logout of a user
   const handleLogout = async () => {
     try {
-      const res = await fetch("/api/logout", { method: "POST" });
+      // 1. kill custom JWT cookie via API
+      await fetch("/api/logout", { method: "POST" });
 
-      if (res.ok) {
-        // Clear LocalStorage
-        localStorage.removeItem("auth_token");
-        localStorage.clear(); // optional: clears all keys
-        sessionStorage.clear();
-        // Optional: redirect user
-        window.location.href = "/login";
-        router.push("/login");
-      }
+      // 2. kill NextAuth session
+      await signOut({ redirect: false });
+
+      // 3. clear any local storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // 4. hard redirect so no cached state remains
+      window.location.href = "/login";
     } catch (err) {
       console.error("Logout failed", err);
+      // force redirect anyway
+      window.location.href = "/login";
     }
   };
 
