@@ -23,6 +23,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -62,7 +63,7 @@ export default function Dashboard() {
 
   const [friends, setFriends] = useState([]);
   const [aiChats, setAiChats] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   const loadAllLists = async () => {
     if (!userEmail) return;
 
@@ -79,6 +80,8 @@ export default function Dashboard() {
       setAiChats(cData.chats || []);
     } catch (err) {
       console.error("Error loading lists:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -94,23 +97,27 @@ export default function Dashboard() {
     (c.name || c.convoId).toLowerCase().includes(searchChat.toLowerCase()),
   );
 
-  // handling the logout of a user
   const handleLogout = async () => {
     try {
-      const res = await fetch("/api/logout", { method: "POST" });
+      // 1. kill custom JWT cookie via API
+      await fetch("/api/logout", { method: "POST" });
 
-      if (res.ok) {
-        // Clear LocalStorage
-        localStorage.removeItem("auth_token");
-        localStorage.clear(); // optional: clears all keys
-        sessionStorage.clear();
-        window.location.href = "/login";
-        router.push("/login");
-      }
+      // 2. kill NextAuth session
+      await signOut({ redirect: false });
+
+      // 3. clear any local storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // 4. hard redirect so no cached state remains
+      window.location.href = "/login";
     } catch (err) {
       console.error("Logout failed", err);
+      // force redirect anyway
+      window.location.href = "/login";
     }
   };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -250,9 +257,7 @@ export default function Dashboard() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="serif text-[1.05rem] text-[#1C1F1A]">
-                Mirai
-              </span>
+              <span className="serif text-[1.05rem] text-[#1C1F1A]">Mirai</span>
             </div>
             <button
               onClick={() => setIsSidebarOpen(false)}
@@ -337,7 +342,6 @@ export default function Dashboard() {
                 Pick up where you left off.
               </p>
             </div>
-
             {/* Quick-action cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
               <Link href="/chat" className="qa-card qa-card-friends">
@@ -378,7 +382,6 @@ export default function Dashboard() {
                 </div>
               </Link>
             </div>
-
             {/* Tabs */}
             <div className="tab-bar mb-5">
               <button
@@ -395,7 +398,6 @@ export default function Dashboard() {
               </button>
             </div>
 
-            {/* Tab content */}
             {activeTab === "friends" ? (
               <div className="space-y-3">
                 <div className="search-wrap mb-4">
@@ -409,38 +411,54 @@ export default function Dashboard() {
                   />
                 </div>
 
-                {filteredFriends.length === 0 && (
+                {isLoading ? (
+                  // skeleton
+                  [...Array(3)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 p-3 bg-[#FDFAF5] border border-[#E8E2D6] rounded-xl"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-[#E8E2D6] animate-pulse flex-shrink-0" />
+                      <div className="flex-1 space-y-2">
+                        <div className="h-3 w-32 bg-[#E8E2D6] rounded animate-pulse" />
+                        <div className="h-2.5 w-20 bg-[#E8E2D6] rounded animate-pulse" />
+                      </div>
+                      <div className="h-2.5 w-16 bg-[#E8E2D6] rounded animate-pulse" />
+                    </div>
+                  ))
+                ) : filteredFriends.length === 0 ? (
                   <p className="text-sm text-[#C4BDB0] py-4">
                     No friends found.
                   </p>
-                )}
-                {filteredFriends.map((f) => (
-                  <div
-                    key={f.chatbox_id}
-                    onClick={() =>
-                      router.push(`/chat?chatboxId=${f.chatbox_id}`)
-                    }
-                    className="list-item"
-                  >
-                    <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <div className="item-avatar item-avatar-friends">
-                        <Users size={18} />
+                ) : (
+                  filteredFriends.map((f) => (
+                    <div
+                      key={f.chatbox_id}
+                      onClick={() =>
+                        router.push(`/chat?chatboxId=${f.chatbox_id}`)
+                      }
+                      className="list-item"
+                    >
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <div className="item-avatar item-avatar-friends">
+                          <Users size={18} />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-[#1C1F1A] truncate">
+                            {f.name || f.email}
+                          </p>
+                          <p className="text-xs text-[#A09B92]">Active chat</p>
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-[#1C1F1A] truncate">
-                          {f.name || f.email}
+                      <div className="flex items-center gap-2 flex-shrink-0 ml-3">
+                        <p className="text-xs text-[#C4BDB0]">
+                          {new Date(f.lastModified).toLocaleDateString()}
                         </p>
-                        <p className="text-xs text-[#A09B92]">Active chat</p>
+                        <ChevronRight size={16} className="item-chevron" />
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 flex-shrink-0 ml-3">
-                      <p className="text-xs text-[#C4BDB0]">
-                        {new Date(f.lastModified).toLocaleDateString()}
-                      </p>
-                      <ChevronRight size={16} className="item-chevron" />
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             ) : (
               <div className="space-y-3">
@@ -455,36 +473,51 @@ export default function Dashboard() {
                   />
                 </div>
 
-                {filteredAIChats.length === 0 && (
+                {isLoading ? (
+                  [...Array(3)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 p-3 bg-[#FDFAF5] border border-[#E8E2D6] rounded-xl"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-[#3A4A3A]/20 animate-pulse flex-shrink-0" />
+                      <div className="flex-1 space-y-2">
+                        <div className="h-3 w-40 bg-[#E8E2D6] rounded animate-pulse" />
+                        <div className="h-2.5 w-24 bg-[#E8E2D6] rounded animate-pulse" />
+                      </div>
+                      <div className="h-2.5 w-16 bg-[#E8E2D6] rounded animate-pulse" />
+                    </div>
+                  ))
+                ) : filteredAIChats.length === 0 ? (
                   <p className="text-sm text-[#C4BDB0] py-4">No chats found.</p>
-                )}
-                {filteredAIChats.map((c) => (
-                  <div
-                    key={c._id}
-                    onClick={() =>
-                      router.push(`/ask-doubt?convoId=${c.convoId}`)
-                    }
-                    className="list-item"
-                  >
-                    <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <div className="item-avatar item-avatar-ai">
-                        <Sparkles size={18} />
+                ) : (
+                  filteredAIChats.map((c) => (
+                    <div
+                      key={c._id}
+                      onClick={() =>
+                        router.push(`/ask-doubt?convoId=${c.convoId}`)
+                      }
+                      className="list-item"
+                    >
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <div className="item-avatar item-avatar-ai">
+                          <Sparkles size={18} />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-[#1C1F1A] truncate">
+                            {c.name || "Untitled Chat"}
+                          </p>
+                          <p className="text-xs text-[#A09B92]">AI Assistant</p>
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-[#1C1F1A] truncate">
-                          {c.name || "Untitled Chat"}
+                      <div className="flex items-center gap-2 flex-shrink-0 ml-3">
+                        <p className="text-xs text-[#C4BDB0]">
+                          {new Date(c.lastModified).toLocaleDateString()}
                         </p>
-                        <p className="text-xs text-[#A09B92]">AI Assistant</p>
+                        <ChevronRight size={16} className="item-chevron" />
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 flex-shrink-0 ml-3">
-                      <p className="text-xs text-[#C4BDB0]">
-                        {new Date(c.lastModified).toLocaleDateString()}
-                      </p>
-                      <ChevronRight size={16} className="item-chevron" />
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             )}
           </main>

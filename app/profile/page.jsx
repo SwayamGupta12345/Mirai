@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Lock } from "lucide-react";
 import { getSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 // Reusable password rule component
 const PasswordCheck = ({ label, valid }) => (
@@ -158,23 +159,24 @@ export default function ProfilePage() {
       [e.target.name]: e.target.value,
     });
   };
-
   const handleLogout = async () => {
     try {
-      const res = await fetch("/api/logout", { method: "POST" });
+      // 1. kill custom JWT cookie via API
+      await fetch("/api/logout", { method: "POST" });
 
-      if (res.ok) {
-        // Clear LocalStorage
-        localStorage.removeItem("auth_token");
-        localStorage.clear(); // optional: clears all keys
-        sessionStorage.clear();
-        window.location.href = "/login";
-        router.push("/login");
-        // Optional: redirect user
-        // window.location.href = "/login";
-      }
+      // 2. kill NextAuth session
+      await signOut({ redirect: false });
+
+      // 3. clear any local storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // 4. hard redirect so no cached state remains
+      window.location.href = "/login";
     } catch (err) {
       console.error("Logout failed", err);
+      // force redirect anyway
+      window.location.href = "/login";
     }
   };
 
@@ -231,9 +233,7 @@ export default function ProfilePage() {
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="serif text-[1.05rem] text-[#1C1F1A]">
-            Mirai
-          </span>
+          <span className="serif text-[1.05rem] text-[#1C1F1A]">Mirai</span>
         </div>
 
         {/* Nav */}
