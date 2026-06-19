@@ -3,8 +3,18 @@ import { connectToDatabase } from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers"; // 👈 import this for setting cookies
+import { rateLimit } from "@/lib/rateLimit";
 
 export async function POST(req) {
+  const ip = req.headers.get("x-forwarded-for") ?? "unknown";
+  const requests = await rateLimit(ip);
+
+  if (requests > 10) { // max 10 attempts per minute
+    return NextResponse.json(
+      { message: "Too many requests. Please try again later." },
+      { status: 429 }
+    );
+  }
   try {
     const { email, password } = await req.json();
 
