@@ -1,9 +1,19 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
-import axios from "axios"; // ⬅️ add this line
+import axios from "axios";
+import { rateLimit } from "@/lib/rateLimit";
 
 export async function POST(req) {
+  const ip = req.headers.get("x-forwarded-for") ?? "unknown";
+  const requests = await rateLimit(ip);
+
+  if (requests > 5) { // stricter for signup
+    return NextResponse.json(
+      { message: "Too many requests. Please try again later." },
+      { status: 429 }
+    );
+  }
   try {
     const { target, convoId } = await req.json();
 
