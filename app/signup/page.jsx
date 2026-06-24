@@ -105,7 +105,7 @@ export default function SignupPage() {
     // const callbackUrl = process.env.NODE_ENV === "production"
     //   ? `${window.location.origin}/dashboard`
     //   : "http://localhost:3000/dashboard";
-    signIn("google", { callbackUrl, redirect: true });
+    // signIn("google", { callbackUrl, redirect: true });
   };
 
   const handleChange = (e) => {
