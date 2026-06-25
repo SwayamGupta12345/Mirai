@@ -133,7 +133,7 @@ export default function About() {
 
           {/* Footer strip */}
           <div className="pt-6 border-t border-[#D6CFBF] flex flex-wrap gap-4 items-center justify-between">
-            <p className="text-xs text-[#A09B92]">© 2026 Mirai. Student project.</p>
+            <p className="text-xs text-[#A09B92]">© {new Date().getFullYear()} Mirai. Student project.</p>
             <div className="flex gap-4">
               <a href="/privacy-policy" className="text-xs text-[#7A7568] hover:text-[#1C1F1A] no-underline transition-colors">Privacy Policy</a>
               <a href="/terms"          className="text-xs text-[#7A7568] hover:text-[#1C1F1A] no-underline transition-colors">Terms of Use</a>
