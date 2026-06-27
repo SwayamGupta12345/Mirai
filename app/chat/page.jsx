@@ -29,6 +29,7 @@ import { MdDelete } from "react-icons/md";
 import { RiEditLine } from "react-icons/ri";
 import { getSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
+import { signOut } from "next-auth/react";
 
 export default function AskDoubtPage({ isSidebarOpen, setIsSidebarOpen }) {
   return (
@@ -828,23 +829,24 @@ function ChatPageInner() {
     }
   };
 
-  // handling the logout of a user
   const handleLogout = async () => {
     try {
-      const res = await fetch("/api/logout", { method: "POST" });
+      // 1. kill custom JWT cookie via API
+      await fetch("/api/logout", { method: "POST" });
 
-      if (res.ok) {
-        // Clear LocalStorage
-        localStorage.removeItem("auth_token");
-        localStorage.clear(); // optional: clears all keys
-        sessionStorage.clear();
-        window.location.href = "/login";
-        router.push("/login");
-        // Optional: redirect user
-        // window.location.href = "/login";
-      }
+      // 2. kill NextAuth session
+      await signOut({ redirect: false });
+
+      // 3. clear any local storage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // 4. hard redirect so no cached state remains
+      window.location.href = "/login";
     } catch (err) {
       console.error("Logout failed", err);
+      // force redirect anyway
+      window.location.href = "/login";
     }
   };
 
@@ -964,9 +966,7 @@ function ChatPageInner() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="serif text-[1.05rem] text-[#1C1F1A]">
-              Mirai
-            </span>
+            <span className="serif text-[1.05rem] text-[#1C1F1A]">Mirai</span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(false)}
